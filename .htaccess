@@ -1,1 +1,2 @@
-Redirect /timetable http://10.1.103.26/timetable/web/index.php?r=handbook/classrooms 
+RewriteEngine On
+RewriteRule ^\/timetable\/?$ /timetable/web/index.php?r=handbook/classrooms [L]

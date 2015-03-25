@@ -13,7 +13,7 @@ use app\module\handbook\models\ClassType;
 /**
  * ClassRoomsController implements the CRUD actions for ClassRooms model.
  */
-class ClassroomsController extends Controller
+class ClassRoomsController extends Controller
 {
     public function behaviors()
     {
@@ -91,7 +91,8 @@ class ClassroomsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        
+       
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
             ClassType::deleteAll('classroom_id = '.$model->classrooms_id);
@@ -107,6 +108,11 @@ class ClassroomsController extends Controller
             
             return $this->redirect(['view', 'id' => $model->classrooms_id]);
         } else {
+            $opt = ClassType::findAll(['classroom_id'=>$_GET['id']]);
+            foreach ($opt as $key){
+                $optArr[] = $key['spec_class_id'];
+            }
+                $model->options = $optArr;
             return $this->render('update', [
                 'model' => $model,
             ]);

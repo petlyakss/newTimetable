@@ -5,5 +5,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteCond %{REQUEST_FILENAME} !-d
 
 # otherwise forward it to index.php
-RewriteRule .* /raspisanie/web/index.php?r=handbook/classrooms [L,R]
-RewriteRule .* /timetable/web/index.php?r=handbook/classrooms [L,R]
+#RedirectMatch (.*)$ /web/index.php?r=handbook/classrooms
+#RewriteRule ^$ /web/index.php?r=handbook/classrooms [L,R]
+RewriteRule ^$ /timetable/web/index.php?r=handbook/classrooms [L,R]

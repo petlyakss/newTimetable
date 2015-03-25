@@ -1,0 +1,14 @@
+[25-Mar-2015 06:35:24 UTC] PHP Fatal error:  Class 'app\module\handbook\models\ClassRooms' not found in /home/sysadmin/www/raspisanie/module/handbook/models/ClassRoomsSearch.php on line 15
+[25-Mar-2015 06:35:24 UTC] PHP Stack trace:
+[25-Mar-2015 06:35:24 UTC] PHP   1. {main}() /home/sysadmin/www/raspisanie/web/index.php:0
+[25-Mar-2015 06:35:24 UTC] PHP   2. yii\base\Application->run() /home/sysadmin/www/raspisanie/web/index.php:12
+[25-Mar-2015 06:35:24 UTC] PHP   3. yii\web\Application->handleRequest() /home/sysadmin/www/raspisanie/vendor/yiisoft/yii2/base/Application.php:375
+[25-Mar-2015 06:35:24 UTC] PHP   4. yii\base\Module->runAction() /home/sysadmin/www/raspisanie/vendor/yiisoft/yii2/web/Application.php:83
+[25-Mar-2015 06:35:24 UTC] PHP   5. yii\base\Controller->runAction() /home/sysadmin/www/raspisanie/vendor/yiisoft/yii2/base/Module.php:455
+[25-Mar-2015 06:35:24 UTC] PHP   6. yii\base\InlineAction->runWithParams() /home/sysadmin/www/raspisanie/vendor/yiisoft/yii2/base/Controller.php:151
+[25-Mar-2015 06:35:24 UTC] PHP   7. call_user_func_array() /home/sysadmin/www/raspisanie/vendor/yiisoft/yii2/base/InlineAction.php:55
+[25-Mar-2015 06:35:24 UTC] PHP   8. app\module\handbook\controllers\ClassroomsController->actionIndex() /home/sysadmin/www/raspisanie/vendor/yiisoft/yii2/base/InlineAction.php:55
+[25-Mar-2015 06:35:24 UTC] PHP   9. spl_autoload_call() /home/sysadmin/www/raspisanie/vendor/yiisoft/yii2/base/InlineAction.php:36
+[25-Mar-2015 06:35:24 UTC] PHP  10. yii\BaseYii::autoload() /home/sysadmin/www/raspisanie/vendor/yiisoft/yii2/base/InlineAction.php:0
+[25-Mar-2015 06:35:24 UTC] PHP  11. include() /home/sysadmin/www/raspisanie/vendor/yiisoft/yii2/BaseYii.php:288
+[25-Mar-2015 08:44:25 Europe/Helsinki] PHP Parse error:  syntax error, unexpected '~' in /home/sysadmin/www/raspisanie/web/index.php on line 2

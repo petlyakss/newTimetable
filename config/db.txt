@@ -1,3 +1,0 @@
-timetable_znu
-root
-sa

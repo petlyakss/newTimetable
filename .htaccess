@@ -1,2 +1,9 @@
-RewriteEngine On
-RewriteRule ^\/timetable\/?$ /timetable/web/index.php?r=handbook/classrooms [L]
+RewriteEngine on
+
+# if a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule .* /raspisanie/web/index.php?r=handbook/classrooms [L,R]
+RewriteRule .* /timetable/web/index.php?r=handbook/classrooms [L,R]

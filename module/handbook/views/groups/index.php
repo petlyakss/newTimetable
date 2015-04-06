@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\module\handbook\models\GroupsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Groups';
+$this->title = 'Групи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="groups-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Groups', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Додати групу', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -57,9 +57,11 @@ $this->params['breadcrumbs'][] = $this->title;
               }
             ],
             'inflow_year',
+            'number_of_students',
+            'okr.okr_name',
             // 'parent_group',
             [
-              'header' => 'підгрупи',
+              'header' => 'Підгрупи',
               'filter' => '<input type="text" class="form-control" '
                 .' name="GroupsSearch[sub_group]" '
                 .' value="'.$searchModel->sub_group.'" />',
@@ -69,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $subGroups = $data->getSubGroups();
                 $result = '
                     <a class="btn btn-success btn-xs 2" 
-                    href="'.Url::toRoute(['create','parent_id'=>$data->group_id]).'">
+                    href="'.Url::toRoute(['create', 'okr_id' => $data->id_okr, 'parent_id'=>$data->group_id]).'">
                       <i class="fa fa-plus"></i> Додати підгрупу
                     </a>
                     <table class="table table-hover table-bordered" style="margin-top: 10px;">
@@ -82,14 +84,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 foreach ($subGroups as $subGroup){
                     /* @var $subGroup app\module\handbook\models\Groups */
                     $result .= '<tr><td>'.$subGroup->main_group_name.'</td>
-                        <td><a href="'.Url::toRoute(['delete', 'id' => $subGroup->group_id]).'" title="Видалити підгрупу" 
+                        <td>
+                            <a href="'.Url::toRoute(['view', 'id' => $subGroup->group_id]).'">
+                              <i class="glyphicon glyphicon-eye-open"></i>
+                            </a>
+                            <a href="'.Url::toRoute(['update', 'id' => $subGroup->group_id,'parent_id'=>$data->group_id]).'">
+                              <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                            <a href="'.Url::toRoute(['delete', 'id' => $subGroup->group_id]).'" title="Видалити підгрупу" 
                                 data-confirm="Видалити підгрупу?" 
                                 data-method="post" data-pjax="1">
                               <i class="glyphicon glyphicon-trash"></i>
-                            </a>
-                            <a href="'.Url::toRoute(['update', 'id' => $subGroup->group_id]).'">
-                              <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
+                            </a>                            
                         </td>
                     </tr>';
                 }           

@@ -45,7 +45,7 @@ class Speciality extends \yii\db\ActiveRecord
     {
         return [
             'speciality_id' => 'Speciality ID',
-            'speciality_name' => 'Speciality Name',
+            'speciality_name' => 'Спеціальність',
             'id_edebo' => 'Id Edebo',
             'id_cathedra' => 'Id Cathedra',
             'id_faculty' => 'Id Faculty',

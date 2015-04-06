@@ -5,8 +5,14 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\Groups */
-
-$this->title = 'Create Groups';
+if(isset($_GET['parent_id'])){
+    $title_str = "Додати підгрупу";
+    $is_subgroup = true;
+}else{
+    $title_str = "Додати групу";
+    $is_subgroup = false;
+}
+$this->title = $title_str;
 $this->params['breadcrumbs'][] = ['label' => 'Groups', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -2,12 +2,27 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\module\handbook\models\Groups;
 
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\Groups */
 
-$this->title = $model->group_id;
-$this->params['breadcrumbs'][] = ['label' => 'Groups', 'url' => ['index']];
+if($model->is_subgroup != 0){
+    $is_subgroup = true;
+}else{
+    $is_subgroup = false;
+}
+
+if($is_subgroup == true){
+    $title_str = "Підгрупа ";
+    $parent_gr_arr = Groups::findOne(['group_id' => $model->parent_group]); 
+    $parent_gr = $parent_gr_arr['main_group_name'];
+}else{
+    $title_str = "Група ";
+    $parent_gr = "";
+}
+$this->title = $title_str. $model->main_group_name;
+$this->params['breadcrumbs'][] = ['label' => 'Групи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="groups-view">
@@ -15,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->group_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->group_id], [
+        <?= Html::a('Оновити', ['update', 'id' => $model->group_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Видалити', ['delete', 'id' => $model->group_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -30,10 +45,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'group_id',
             'main_group_name',
-            'is_subgroup',
-            'id_speciality',
+            //'is_subgroup',
+            'speciality.speciality_name',
+            'id_edebo',
             'inflow_year',
-            'parent_group',
+            'number_of_students',
+            'okr.okr_name',
+            [
+                'label' => 'Група',
+                'value' => $parent_gr
+            ]
         ],
     ]) ?>
 

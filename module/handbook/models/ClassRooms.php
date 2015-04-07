@@ -3,7 +3,6 @@
 namespace app\module\handbook\models;
 
 use Yii;
-use yii\helpers\Html;
 use app\module\handbook\models\SpecClasses;
 use app\module\handbook\models\ClassType;
 
@@ -16,12 +15,13 @@ use app\module\handbook\models\ClassType;
  * @property integer $seats
  * @property integer $comp_number
  * @property string $options
+ * @property integer $is_public
  *
  * @property ClassType[] $classTypes
  * @property Housing $idHousing
  */
-class ClassRooms extends \yii\db\ActiveRecord
-{    
+class Classrooms extends \yii\db\ActiveRecord
+{
     /**
      * @inheritdoc
      */
@@ -36,9 +36,9 @@ class ClassRooms extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['classrooms_number', 'id_housing', 'seats', 'comp_number', 'options'], 'required'],
-            [['id_housing', 'seats', 'comp_number'], 'integer'],
-            [['classrooms_number'], 'string', 'max' => 4],
+            [['classrooms_number', 'id_housing', 'seats', 'comp_number', 'is_public','options'], 'required'],
+            [['id_housing', 'seats', 'comp_number', 'is_public'], 'integer'],
+            [['classrooms_number'], 'string', 'max' => 4]
         ];
     }
 
@@ -48,22 +48,22 @@ class ClassRooms extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'classrooms_id' => 'ID',
+            'classrooms_id' => 'ID аудиторії',
             'classrooms_number' => 'Аудиторія №',
             'id_housing' => 'Корпус',
-            'seats' => 'Кількість місць',
+            'seats' => 'Місць для сидіння',
             'comp_number' => 'Кількість комп\'ютерів',
             'options' => 'Options',
+            'is_public' => 'Інші дисципліни',
         ];
     }
-    
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getClassTypes()
     {
-       return $this->hasMany(ClassType::className(), ['classroom_id' => 'classrooms_id']);
+        return $this->hasMany(ClassType::className(), ['classroom_id' => 'classrooms_id']);
     }
 
     /**
@@ -73,7 +73,4 @@ class ClassRooms extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Housing::className(), ['housing_id' => 'id_housing']);
     }
-    
-    
-    
 }

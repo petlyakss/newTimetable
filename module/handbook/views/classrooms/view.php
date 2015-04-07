@@ -6,9 +6,9 @@ use app\module\handbook\models\ClassType;
 use app\module\handbook\models\SpecClasses;
 
 /* @var $this yii\web\View */
-/* @var $model app\module\handbook\models\ClassRooms */
+/* @var $model app\module\handbook\models\Classrooms */
 
-$this->title = "Аудиторія № ".$model->classrooms_number;
+$this->title = 'Аудиторія №'.$model->classrooms_number;
 $this->params['breadcrumbs'][] = ['label' => 'Аудиторії', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -20,9 +20,18 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         
         $optionsString = implode($optionsArray);
-
+        
+        
+        
+        function translater($val){         
+            if($val == 0){
+                    return  "Ні";
+                }else{
+                    return "Так";
+            }
+        }        
 ?>
-<div class="class-rooms-view">
+<div class="classrooms-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -31,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Видалити', ['delete', 'id' => $model->classrooms_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Ви впевнені, що хочете видалити дану аудиторію?',
+                'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -45,16 +54,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'housing.name',
             'seats',
             'comp_number',
-            //'options',
             [
                 'label' => 'Тип аудиторії',
                 'value' => $optionsString
-            ]
+            ],
+            [
+              'label' => 'Інші дисципліни',
+              'value' => translater($model->is_public)
+            ],
         ],
     ]) ?>
-    
 
-
-
- 
 </div>

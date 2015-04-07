@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\module\handbook\models\ClassRooms */
+/* @var $model app\module\handbook\models\Classrooms */
 
 $this->title = 'Додати аудиторію';
 $this->params['breadcrumbs'][] = ['label' => 'Аудиторії', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="class-rooms-create">
+<div class="classrooms-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

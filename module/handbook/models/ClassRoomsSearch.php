@@ -5,30 +5,24 @@ namespace app\module\handbook\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\module\handbook\models\ClassRooms;
+use app\module\handbook\models\Classrooms;
 use app\module\handbook\models\Housing;
 
 /**
- * ClassRoomsSearch represents the model behind the search form about `app\module\handbook\models\ClassRooms`.
+ * ClassRoomsSearch represents the model behind the search form about `app\module\handbook\models\Classrooms`.
  */
-class ClassRoomsSearch extends ClassRooms
+class ClassRoomsSearch extends Classrooms
 {
-    /**
-     * Атрибут для пошуку (тип аудиторії)
-     * @var string
-     */
     public $class_type_name;
     public $housing_name;
-
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['classrooms_id', 'id_housing', 'seats', 'comp_number'], 'integer'],
-            [['classrooms_number', 'options', 'class_type_name', 'housing_name'], 'safe'],
+            [['classrooms_id', 'id_housing', 'seats', 'comp_number', 'is_public'], 'integer'],
+            [['classrooms_number', 'options','class_type_name', 'housing_name'], 'safe'],
         ];
     }
 

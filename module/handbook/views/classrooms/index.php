@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use app\module\handbook\models\ClassType;
-use app\module\handbook\models\SpecClasses;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\module\handbook\models\ClassRoomsSearch */
@@ -12,19 +10,11 @@ use app\module\handbook\models\SpecClasses;
 $this->title = 'Аудиторії';
 $this->params['breadcrumbs'][] = $this->title;
 
-function classOptions($id){
-$optionsId = ClassType::findAll(['classroom_id'  => $id]); 
-        
-        for($i = 0; $i < count($optionsId); $i++){
-            $optionName[] = SpecClasses::findAll(['spec_class_id' => $optionsId[$i]['spec_class_id']]); 
-            $optionsArray[] = $optionName[$i][0]['spec_class_name']." ";
-        }
-        
-        $optionsString = implode($optionsArray);
-        return $optionsString;
-}
+
+
+
 ?>
-<div class="class-rooms-index">
+<div class="classrooms-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -39,17 +29,9 @@ $optionsId = ClassType::findAll(['classroom_id'  => $id]);
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            //'classrooms_id',          
+            //'classrooms_id',
             'classrooms_number',
-            //'housing.name',
-            [
-               'header' => 'Корпус',
-              'filter' => '<input type="text" class="form-control" '
-                .' name="ClassRoomsSearch[housing_name]" '
-                .' value="'.$searchModel->housing_name.'" />',
-              'format' => 'raw',
-              'value' =>  'housing.name',              
-            ],
+            'housing.name',
             [
               'header' => 'Тип аудиторії',
               'filter' => '<input type="text" class="form-control" '
@@ -74,7 +56,19 @@ $optionsId = ClassType::findAll(['classroom_id'  => $id]);
             ],
             'seats',
             'comp_number',
-            //'options',
+            [
+              'header' => 'Інші дисципліни',
+              'format' => 'raw',
+              'value' => function($data){                
+                if($data->is_public == 0){
+                                return "Ні";
+                            }else{
+                                return "Так";
+                            }
+              }
+            ],
+            // 'options',
+            // 'is_public',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

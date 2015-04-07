@@ -3,28 +3,30 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use app\module\handbook\models\SpecClasses;
-use app\module\handbook\models\Housing;
+use kartik\switchinput\SwitchInput;
 use kartik\select2\Select2;
-
+use app\module\handbook\models\Housing;
+use app\module\handbook\models\SpecClasses;
 
 /* @var $this yii\web\View */
-/* @var $model app\module\handbook\models\ClassRooms */
+/* @var $model app\module\handbook\models\Classrooms */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="class-rooms-form">
+<div class="classrooms-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'classrooms_number')->textInput(['maxlength' => 4]) ?>
 
-    <?= $form->field($model, 'id_housing')->dropDownList(ArrayHelper::map(Housing::find()->all(),'housing_id','name')) ?>
+    <?=
+        $form->field($model, 'id_housing')->dropDownList(ArrayHelper::map(Housing::find()->all(),'housing_id','name'));    
+    ?>
 
     <?= $form->field($model, 'seats')->textInput() ?>
 
     <?= $form->field($model, 'comp_number')->textInput() ?>
-    
+
     <?php
         echo Html::label("Тип аудиторії");
         echo Select2::widget([
@@ -35,11 +37,15 @@ use kartik\select2\Select2;
             'options' => ['multiple' => true]
         ]);        
     ?>
-    
-    
     <br/>
+    <?php
+    echo Html::label('Інші дисципліни');
+        echo $form->field($model, 'is_public')->widget(SwitchInput::classname(), [
+        'type' => SwitchInput::CHECKBOX
+    ])->label(false);
+    ?>
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Зберегти' : 'Оновити', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Створити' : 'Оновити', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

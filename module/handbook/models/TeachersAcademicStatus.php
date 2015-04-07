@@ -40,7 +40,7 @@ class TeachersAcademicStatus extends \yii\db\ActiveRecord
     {
         return [
             'academic_status_id' => 'Academic Status ID',
-            'academic_status_name' => 'Academic Status Name',
+            'academic_status_name' => 'Вчене звання',
         ];
     }
 

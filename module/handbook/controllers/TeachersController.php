@@ -8,6 +8,7 @@ use app\module\handbook\models\TeachersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\module\handbook\models\TeachersOtherCathedra;
 
 /**
  * TeachersController implements the CRUD actions for Teachers model.
@@ -48,8 +49,10 @@ class TeachersController extends Controller
      */
     public function actionView($id)
     {
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
+            
         ]);
     }
 
@@ -60,9 +63,17 @@ class TeachersController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Teachers();
+        $model = new Teachers();        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            foreach($model->teacher_other_cathedra as $cath){
+                $toc = new TeachersOtherCathedra;
+                $toc->id_teacher = $model->teacher_id;
+                $toc->id_cathedra = $cath;
+                $toc->insert();
+            }
+            
             return $this->redirect(['view', 'id' => $model->teacher_id]);
         } else {
             return $this->render('create', [
@@ -79,11 +90,26 @@ class TeachersController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($id);        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+        TeachersOtherCathedra::deleteAll('id_teacher = '.$id);
+            
+            foreach($model->teacher_other_cathedra as $cath){
+                $toc = new TeachersOtherCathedra;
+                $toc->id_teacher = $model->teacher_id;
+                $toc->id_cathedra = $cath;
+                $toc->insert();
+            }
             return $this->redirect(['view', 'id' => $model->teacher_id]);
         } else {
+            $opt = TeachersOtherCathedra::findAll(['id_teacher'=>$_GET['id']]);
+            
+            foreach ($opt as $key){
+                $optArr[] = $key['id_cathedra'];
+            }
+                $model->teacher_other_cathedra = $optArr;
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -98,6 +124,8 @@ class TeachersController extends Controller
      */
     public function actionDelete($id)
     {
+        TeachersOtherCathedra::deleteAll('id_teacher = '.$id);
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

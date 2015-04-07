@@ -1,6 +1,7 @@
 <?php
 
 namespace app\module\handbook\models;
+use app\module\handbook\models\TeachersOtherCathedra;
 
 use Yii;
 
@@ -19,6 +20,7 @@ use Yii;
  */
 class Teachers extends \yii\db\ActiveRecord
 {
+    public $teacher_other_cathedra;
     /**
      * @inheritdoc
      */
@@ -35,7 +37,8 @@ class Teachers extends \yii\db\ActiveRecord
         return [
             [['teacher_name', 'id_position', 'id_academic_status', 'id_cathedra'], 'required'],
             [['id_position', 'id_academic_status', 'id_cathedra'], 'integer'],
-            [['teacher_name'], 'string', 'max' => 150]
+            [['teacher_name'], 'string', 'max' => 150],
+            [['teacher_other_cathedra'], 'safe']
         ];
     }
 
@@ -45,11 +48,11 @@ class Teachers extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'teacher_id' => 'Teacher ID',
-            'teacher_name' => 'Teacher Name',
-            'id_position' => 'Id Position',
-            'id_academic_status' => 'Id Academic Status',
-            'id_cathedra' => 'Id Cathedra',
+            'teacher_id' => 'ID викладача',
+            'teacher_name' => 'П.І.Б.',
+            'id_position' => 'Посада',
+            'id_academic_status' => 'Вчене звання',
+            'id_cathedra' => 'Кафедра',
         ];
     }
 
@@ -76,4 +79,11 @@ class Teachers extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TeachersPosition::className(), ['position_id' => 'id_position']);
     }
-}
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOtherCathedra()
+    {
+       return $this->hasMany(TeachersOtherCathedra::className(), ['id_teacher' => 'teacher_id']);
+    }
+}   

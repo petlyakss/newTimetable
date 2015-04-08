@@ -2,12 +2,14 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\module\handbook\models\Housing;
+use app\module\handbook\models\Classrooms;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\module\handbook\models\DisciplineSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Disciplines';
+$this->title = 'Дисципліни';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="discipline-index">
@@ -16,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Discipline', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Додати дисципліну', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -27,14 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'discipline_distribution_id',
             'disciplineName.discipline_name',
-            'id_edbo',
-            'id_deanery',
+            //'id_edbo',
+            //'id_deanery',
             'cathedra.cathedra_name',
             'lessonsType.lesson_type_name',
             'group.main_group_name',
             'course',
             'hours',
             'semestr_hours',
+            [
+              'header' => 'Аудиторія',
+              'value' => function($data){
+                  $classes = Classrooms::findOne(['classrooms_id' => $data->id_classroom]);
+                  $housing = Housing::findOne(['housing_id' => $classes['id_housing']]);
+                  return $classes['classrooms_number'].' - '.$housing['name'];
+              }
+            ],
+            //'classroom.classrooms_number',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

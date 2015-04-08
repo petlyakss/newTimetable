@@ -1,18 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use app\module\handbook\models\DisciplineList;
 
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\Discipline */
 
-$dn = ArrayHelper::map(DisciplineList::find()->all(),'discipline_id','discipline_name');
-$discipline_name = $dn[1];
-$this->title = 'Update Discipline: ' . ' ' . $discipline_name;
-$this->params['breadcrumbs'][] = ['label' => 'Disciplines', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $discipline_name, 'url' => ['view', 'id' => $model->discipline_distribution_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$d_name = DisciplineList::findOne([$model->discipline_distribution_id]);
+$this->title = 'Оновити інформацію про : ' . ' ' . $d_name['discipline_name'];
+$this->params['breadcrumbs'][] = ['label' => 'Дисципліни', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $d_name['discipline_name'], 'url' => ['view', 'id' => $model->discipline_distribution_id]];
+$this->params['breadcrumbs'][] = 'Оновити';
 ?>
 <div class="discipline-update">
 

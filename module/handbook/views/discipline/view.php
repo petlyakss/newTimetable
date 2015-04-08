@@ -2,24 +2,30 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\helpers\ArrayHelper;
+use app\module\handbook\models\Classrooms;
+use app\module\handbook\models\Housing;
 use app\module\handbook\models\DisciplineList;
 
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\Discipline */
-$dn = ArrayHelper::map(DisciplineList::find()->all(),'discipline_id','discipline_name');
-$discipline_name = $dn[1];
-$this->title = $discipline_name;
-$this->params['breadcrumbs'][] = ['label' => 'Disciplines', 'url' => ['index']];
+$d_name = DisciplineList::findOne([$model->discipline_distribution_id]);
+$this->title = $d_name['discipline_name'];
+$this->params['breadcrumbs'][] = ['label' => 'Дисципліни', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+function auditory($val){
+    $classes = Classrooms::findOne(['classrooms_id' => $val]);
+    $housing = Housing::findOne(['housing_id' => $classes['id_housing']]);
+    return $classes['classrooms_number'].' - '.$housing['name'];
+}
 ?>
 <div class="discipline-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->discipline_distribution_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->discipline_distribution_id], [
+        <?= Html::a('Оновити', ['update', 'id' => $model->discipline_distribution_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Видалити', ['delete', 'id' => $model->discipline_distribution_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -41,6 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'course',
             'hours',
             'semestr_hours',
+            [
+              'label' => 'Аудиторія',
+              'value' => auditory($model->id_classroom)
+            ],
         ],
     ]) ?>
 

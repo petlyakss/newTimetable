@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\Speciality */
 
-$this->title = 'Create Speciality';
-$this->params['breadcrumbs'][] = ['label' => 'Specialities', 'url' => ['index']];
+$this->title = 'Додати спеціальність';
+$this->params['breadcrumbs'][] = ['label' => 'Спеціальності', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="speciality-create">

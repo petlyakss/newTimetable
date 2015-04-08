@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\module\handbook\models\Speciality */
 
 $this->title = $model->speciality_name;
-$this->params['breadcrumbs'][] = ['label' => 'Specialities', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Спеціальності', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="speciality-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->speciality_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->speciality_id], [
+        <?= Html::a('Оновити', ['update', 'id' => $model->speciality_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Видалити', ['delete', 'id' => $model->speciality_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',

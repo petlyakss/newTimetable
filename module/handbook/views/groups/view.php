@@ -12,13 +12,15 @@ if($model->is_subgroup != 0){
 }else{
     $is_subgroup = false;
 }
-
-if($is_subgroup == true){
+if($_GET['parent_id'] > 0){
     $title_str = "Підгрупа ";
+}else{
+    $title_str = "Група ";
+}
+if($is_subgroup == true){
     $parent_gr_arr = Groups::findOne(['group_id' => $model->parent_group]); 
     $parent_gr = $parent_gr_arr['main_group_name'];
 }else{
-    $title_str = "Група ";
     $parent_gr = "";
 }
 $this->title = $title_str. $model->main_group_name;
@@ -30,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Оновити', ['update', 'id' => $model->group_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Оновити', ['update', 'parent_id'=>$model->parent_group, 'id' => $model->group_id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Видалити', ['delete', 'id' => $model->group_id], [
             'class' => 'btn btn-danger',
             'data' => [

@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\module\handbook\models\Cathedra;
 use app\module\handbook\models\Faculty;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\Speciality */
@@ -19,12 +20,19 @@ use app\module\handbook\models\Faculty;
 
     <?= $form->field($model, 'id_edebo')->textInput() ?>
 
-    <?= $form->field($model, 'id_cathedra')->dropDownList(ArrayHelper::map(Cathedra::find()->all(), 'cathedra_id', 'cathedra_name')) ?>
-
+    <?=
+        $form->field($model, 'id_cathedra')->widget(Select2::classname(), [
+            'data' => ArrayHelper::map(Cathedra::find()->all(), 'cathedra_id', 'cathedra_name'),
+            'language' => 'uk',
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    ?>
     <?= $form->field($model, 'id_faculty')->dropDownList(ArrayHelper::map(Faculty::find()->all(), 'faculty_id', 'faculty_name')) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Створити' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Додати' : 'Оновити', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     /* @var $subGroup app\module\handbook\models\Groups */
                     $result .= '<tr><td>'.$subGroup->main_group_name.'</td>
                         <td>
-                            <a href="'.Url::toRoute(['view', 'id' => $subGroup->group_id]).'">
+                            <a href="'.Url::toRoute(['view', 'id' => $subGroup->group_id, 'parent_id'=>$data->group_id]).'">
                               <i class="glyphicon glyphicon-eye-open"></i>
                             </a>
                             <a href="'.Url::toRoute(['update', 'id' => $subGroup->group_id,'parent_id'=>$data->group_id]).'">

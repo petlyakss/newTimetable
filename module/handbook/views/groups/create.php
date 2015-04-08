@@ -13,7 +13,7 @@ if(isset($_GET['parent_id'])){
     $is_subgroup = false;
 }
 $this->title = $title_str;
-$this->params['breadcrumbs'][] = ['label' => 'Groups', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Групи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="groups-create">

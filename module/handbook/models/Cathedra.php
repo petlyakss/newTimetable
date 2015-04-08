@@ -45,8 +45,8 @@ class Cathedra extends \yii\db\ActiveRecord
         return [
             'cathedra_id' => 'Cathedra ID',
             'cathedra_name' => 'Кафедра',
-            'id_edbo' => 'Id ЄДЕБО',
-            'id_deanery' => 'Id деканат',
+            'id_edbo' => 'ID ЄДЕБО',
+            'id_deanery' => 'ID деканат',
             'id_faculty' => 'Факультет',
         ];
     }

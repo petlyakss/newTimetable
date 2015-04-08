@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\Speciality */
 
-$this->title = 'Update Speciality: ' . ' ' . $model->speciality_name;
-$this->params['breadcrumbs'][] = ['label' => 'Specialities', 'url' => ['index']];
+$this->title = 'Оновити інформацію про: ' . ' ' . $model->speciality_name;
+$this->params['breadcrumbs'][] = ['label' => 'Спеціальності', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->speciality_name, 'url' => ['view', 'id' => $model->speciality_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Оновити';
 ?>
 <div class="speciality-update">
 

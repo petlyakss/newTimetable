@@ -8,8 +8,12 @@ $config = [
     'bootstrap' => ['log'],
 	'modules' => [
 		'handbook' => [
-			'class' => 'app\module\handbook\HandbookModule',
-		]
+                    'class' => 'app\module\handbook\HandbookModule',
+		],
+                'timetable' => [
+                    'class' => 'app\module\timetable\TimetableCreator',
+
+              ],
 	],
     'components' => [
         'request' => [

@@ -39,6 +39,7 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Головна', 'url' => ['/site/index']],
+                    ['label' => 'Редактор розкладу', 'url' => ['/timetable/lessons']],
                     [
                         'label' => 'Довідники', 
                         'items' => [

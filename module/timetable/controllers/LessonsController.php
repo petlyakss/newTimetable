@@ -80,13 +80,24 @@ class LessonsController extends Controller
         if ($model->load(Yii::$app->request->post())) {//$faculty->load(Yii::$app->request->post()) && $speciality->load(Yii::$app->request->post()) && 
 //            var_dump($model);
 //            exit();
-            return $this->redirect(['creator_index', 'semestr' => $model->semestr, 'course' => $model->course, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality]);
+            return $this->redirect(['editor', 'semestr' => $model->semestr, 'course' => $model->course, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality]);
         } else {
             return $this->render('creator_index', [
                 'model' => $model
             ]);
         }
     }
+    
+    public function actionEditor()
+    {
+        $model = new Lessons();
+        
+        $model->load(Yii::$app->request->get());
+        return $this->render('editor', [
+                'model' => $model,
+                'semestr' => $model['semestr']
+            ]);
+    }    
     
     public function actionSpeciality_list($id)
     {

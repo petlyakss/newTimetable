@@ -9,8 +9,8 @@ use app\module\handbook\models\Speciality;
 /* @var $this yii\web\View */
 /* @var $model app\module\timetable\models\Lessons */
 /* @var $form yii\widgets\ActiveForm */
-$semestr = [1,2];
-$course = [1,2,3,4];
+$semestr = ['Оберіть семестр',1,2];
+$course = ['Оберіть курс',1,2,3,4];
 ?>
 
 <div class="lessons-form">
@@ -30,7 +30,9 @@ $course = [1,2,3,4];
             ']
         )->label("Факультет")?>
     
-    <?= $form->field($model, 'id_speciality')->dropDownList(ArrayHelper::map(Speciality::find()->all(), 'speciality_id','speciality_name'))->label("Спеціальність")?>    
+    <?= $form->field($model, 'id_speciality')->dropDownList(ArrayHelper::map(Speciality::find()->all(), 'speciality_id','speciality_name'),
+        ['prompt'=>'Оберіть спеціальність']
+        )->label("Спеціальність")?>    
     
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

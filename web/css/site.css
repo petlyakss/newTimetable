@@ -92,3 +92,40 @@ a.desc:after {
 .class_types_margin{
     margin: 4px 0px 4px 0px;
 }
+/*Оформление редактора рассписания*/
+        .day_name{
+          transform: rotate(-90deg);
+          font-size: 20px;
+        }
+        .lesson_time{
+          text-align: center;
+          padding: 15px;
+        }
+        .info_in_editor{
+          vertical-align: middle;
+          padding: 15px;
+          position: relative;
+        }
+        .day_info_in_editor, tr{
+          height: 100%;
+        }
+        .bottom_ccc_border{
+          border-bottom: 1px solid #ddd;
+        }
+        .editor_edit_button{
+          float: right;
+          color: #B1B1B1;
+          position: absolute;
+          top: 0;
+          right: 3px;
+        }
+        .editor_p{
+          margin: 0;
+        }
+        .editor_h5{
+          font-style: italic;
+        }
+        .teacher_name{
+          font-style: normal;
+          font-weight: bold;
+        }

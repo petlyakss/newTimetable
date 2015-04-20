@@ -3,6 +3,7 @@
 namespace app\module\timetable\models;
 
 use Yii;
+use app\module\handbook\models\DisciplineList;
 
 /**
  * This is the model class for table "lessons".
@@ -35,7 +36,7 @@ use Yii;
 class Lessons extends \yii\db\ActiveRecord
 {
     public $semestr;
-    public $course;
+    public $course_get;
     /**
      * @inheritdoc
      */
@@ -50,8 +51,9 @@ class Lessons extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_group', 'id_faculty', 'id_speciality', 'course', 'semester', 'id_okr', 'is_numerator', 'id_discipline', 'id_teacher', 'id_classroom', 'day', 'is_holiday', 'all_group', 'all_speciality', 'lesson_number','semestr','course'], 'required'],
-            [['id_group', 'id_faculty', 'id_speciality', 'course', 'semester', 'id_okr', 'is_numerator', 'id_discipline', 'id_teacher', 'id_classroom', 'day', 'is_holiday', 'all_group', 'all_speciality', 'lesson_number','semestr','course'], 'integer']
+            [['id_group', 'id_faculty', 'id_speciality', 'course', 'semester', 'id_okr', 'is_numerator', 'id_discipline', 'id_teacher', 'id_classroom', 'day', 'is_holiday', 'all_group', 'all_speciality', 'lesson_number'], 'required'],
+            [['id_group', 'id_faculty', 'id_speciality', 'course', 'semester', 'id_okr', 'is_numerator', 'id_discipline', 'id_teacher', 'id_classroom', 'day', 'is_holiday', 'all_group', 'all_speciality', 'lesson_number'], 'integer'],
+            [['semestr','course_get'],'safe']
         ];
     }
 
@@ -94,6 +96,14 @@ class Lessons extends \yii\db\ActiveRecord
     public function getDiscipline()
     {
         return $this->hasOne(Discipline::className(), ['discipline_id' => 'id_discipline']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDisciplineName()
+    {
+        return $this->hasOne(DisciplineList::className(), ['discipline_id' => 'discipline_name']);
     }
 
     /**

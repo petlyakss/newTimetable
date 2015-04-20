@@ -14,12 +14,12 @@ $course = ['Оберіть курс',1,2,3,4];
 ?>
 
 <div class="lessons-form">
-
+s
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'semestr')->dropDownList($semestr)->label("Семестр"); ?>
     
-    <?= $form->field($model, 'course')->dropDownList($course)->label("Курс"); ?>
+    <?= $form->field($model, 'course_get')->dropDownList($course)->label("Курс"); ?>
     
     <?= $form->field($model, 'id_faculty')->dropDownList(ArrayHelper::map(Faculty::find()->all(), 'faculty_id','faculty_name'),
         ['prompt'=>'Оберіть факультет',

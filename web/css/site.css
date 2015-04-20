@@ -108,6 +108,7 @@ a.desc:after {
         }
         .day_info_in_editor, tr{
           height: 100%;
+          width: 320px;
         }
         .bottom_ccc_border{
           border-bottom: 1px solid #ddd;
@@ -116,8 +117,10 @@ a.desc:after {
           float: right;
           color: #B1B1B1;
           position: absolute;
-          top: 0;
+          top: 3px;
           right: 3px;
+          background: transparent;
+          border: 0px;
         }
         .editor_p{
           margin: 0;
@@ -128,4 +131,7 @@ a.desc:after {
         .teacher_name{
           font-style: normal;
           font-weight: bold;
+        }
+        .day_name_col{
+            width: 100px;
         }

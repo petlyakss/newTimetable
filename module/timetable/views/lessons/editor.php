@@ -12,6 +12,9 @@ use app\module\handbook\models\Discipline;
 use app\module\handbook\models\LessonsType;
 use app\module\handbook\models\Housing;
 use app\module\handbook\models\Classrooms;
+use yii\bootstrap\Modal;
+
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\module\timetable\models\Lessons */
 
@@ -24,43 +27,54 @@ $spec_name = Speciality::findOne(["speciality_id" => $speciality]);
 $faculty_name = Faculty::findOne(["faculty_id" => $faculty]);
 $week = ["","Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота"];
 
-$groups_list = Groups::findAll(["id_speciality" => $speciality, "inflow_year" => $inflow_year, ]);
+$groups_list = Groups::findAll(["id_speciality" => $speciality, "inflow_year" => $inflow_year]);
 
 //$discipline_list = DisciplineList::findAll();
 
 
-$this->title = 'Оберіть наступні параметри:';
+$this->title = 'Редагувати розклад:';
 $this->params['breadcrumbs'][] = ['label' => 'Редактор розкладу', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $semestr.' семестр';
+$this->params['breadcrumbs'][] = $course_get. ' курс';
+$this->params['breadcrumbs'][] = $faculty_name['faculty_name'];
+$this->params['breadcrumbs'][] = $spec_name['speciality_name'];
 ?>
 <div class="lessons-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    
     <?php
+    
+    Modal::begin([
+      'header' => '<h4>Редагування інформації про пару</h4>',
+      'id' => 'modal',
+      'size' => 'modal-lg',
+    ]);
+    
+    echo "<div id='modalContent'></div>";
+    
+    Modal::end();
+    
+    /*
      echo "Семестр ".$semestr."<br/>";
      echo "Курс ".$course_get."<br/>";
      echo "Рік вступу ".$inflow_year."<br/>";
      echo "Спеціальність ".$speciality." ".$spec_name['speciality_name']."<br/>";
      echo "Факультет ".$faculty." ".$faculty_name['faculty_name']."<br/>";
-     
+     */
      
      
     foreach($groups_list as $gr){
-         //echo $gr['main_group_name']." - ".$gr['is_subgroup']."<br/>";
-    }
-     
-     
-     
-          
-          
+         echo $gr['group_id']." - ".$gr['main_group_name']." - ".$gr['is_subgroup']."<br/>"; 
+        $id_group = $gr['group_id'];
+        $id_okr = $gr['id_okr'];
+    
           
     for($i = 1; $i < 7; $i++) {     
          ?>
     <table class="table-striped table-bordered">
           <tr>
-            <td rowspan="9">
+              <td rowspan="9" class="day_name_col">
               <p class="day_name"><?php echo $week[$i]; ?></p>
             </td>
           </tr>
@@ -74,7 +88,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </td>            
             <td class="day_info_in_editor">
               <div class="info_in_editor bottom_ccc_border">
-                <a href="#" class="editor_edit_button"><i class="fa fa-pencil" title="Редагувати"></i></a>
                 
                 <?php                    
                         $one_lesson = Lessons::findOne([
@@ -84,14 +97,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'id_faculty' => $faculty,
                                         'day' => $i,
                                         'lesson_number' => $lt['lesson_time_id'],
-                                        'is_numerator' => 1
-                            ]);                  
+                                        'is_numerator' => 1,
+                                        'id_group' => $id_group
+                            ]);      
+                        $lesson_id = $one_lesson['lesson_id'];
                 ?>
                 <?php
                 if(empty($one_lesson)){
+                ?>
+                
+                    <?= Html::button('', ['value'=>Url::to('index.php?r=timetable/lessons/create&id_okr='.$id_okr.'&id_group='.$id_group.'&id_faculty='.$faculty.'&id_speciality='.$speciality.'&course='.$course_get.'&semester='.$semestr.'&is_numerator=1&day='.$i.'&lesson_number='.$lt['lesson_time_id']), 'class' => 'editor_edit_button fa fa-pencil-square-o', 'id' => 'modalButton', 'title' => 'Редагувати']); ?>
+                <?php
                     echo 'Інформація відсутня';                
                 }else{
                 ?>
+                  <?= Html::button('', ['value'=>Url::to('index.php?r=timetable/lessons/update&id='.$lesson_id.'&id_okr='.$id_okr.'&id_group='.$id_group.'&id_faculty='.$faculty.'&id_speciality='.$speciality.'&course='.$course_get.'&semester='.$semestr.'&is_numerator=1&day='.$i.'&lesson_number='.$lt['lesson_time_id']), 'class' => 'editor_edit_button fa fa-pencil-square-o', 'id' => 'modalButton', 'title' => 'Редагувати']); ?>
+   
                   <p class="editor_p">
                     <h4>
                       <?php 
@@ -135,7 +156,6 @@ $this->params['breadcrumbs'][] = $this->title;
               </div>
                 
               <div class="info_in_editor">
-                <a href="#" class="editor_edit_button"><i class="fa fa-pencil" title="Редагувати"></i></a>
                 <?php
                     $one_lesson = Lessons::findOne([
                                     'semester' => $semestr, 
@@ -144,13 +164,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'id_faculty' => $faculty,
                                     'day' => $i,
                                     'lesson_number' => 1,
-                                    'is_numerator' => 0
+                                    'is_numerator' => 0,
+                                    'id_group' => $id_group
                         ]);                  
                 ?>
                 <?php
-                if(!(empty($one_lesson))){
+                if(!(empty($one_lesson))){                    
+                ?>
                 
+                    <?= Html::button('', ['value'=>Url::to('index.php?r=timetable/lessons/create&id_okr='.$id_okr.'&id_group='.$id_group.'&id_faculty='.$faculty.'&id_speciality='.$speciality.'&course='.$course_get.'&semester='.$semestr.'&is_numerator=0&day='.$i.'&lesson_number='.$lt['lesson_time_id']), 'class' => 'editor_edit_button fa fa-pencil-square-o', 'id' => 'modalButton', 'title' => 'Редагувати']); ?>
+                <?php
                 }else{
+                ?>
+                   <?= Html::button('', ['value'=>Url::to('index.php?r=timetable/lessons/create&id_okr='.$id_okr.'&id_group='.$id_group.'&id_faculty='.$faculty.'&id_speciality='.$speciality.'&course='.$course_get.'&semester='.$semestr.'&is_numerator=0&day='.$i.'&lesson_number='.$lt['lesson_time_id']), 'class' => 'editor_edit_button fa fa-pencil-square-o', 'id' => 'modalButton', 'title' => 'Редагувати']); ?>
+                <?php
                     echo 'Інформація відсутня';
                 }
                 ?>
@@ -159,6 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
           </tr>
           <?php
           }
+    }
           ?>
           
           

@@ -3,6 +3,7 @@
 namespace app\module\timetable\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use app\module\timetable\models\Lessons;
 use app\module\timetable\models\LessonsSearch;
 use yii\web\Controller;
@@ -65,7 +66,8 @@ class LessonsController extends Controller
         $model = new Lessons();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->lesson_id]);
+            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#lesson_id'.$model->lesson_id);    
+            return $this->redirect($url);
         } else {
             return $this->renderAjax('create', [
                 'model' => $model,
@@ -131,7 +133,11 @@ class LessonsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->lesson_id]);
+            //return $this->redirect(['editor', 'id' => $model->lesson_id, 'semestr' => $model->semester, 'course_get' => $model->course, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality].'#lesson_id'.$model->lesson_id);
+            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#lesson_id'.$model->lesson_id);    
+            return $this->redirect($url);
+                
+                
         } else {
             return $this->renderAjax('update', [
                 'model' => $model,

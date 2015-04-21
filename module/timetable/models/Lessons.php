@@ -3,7 +3,6 @@
 namespace app\module\timetable\models;
 
 use Yii;
-use app\module\handbook\models\DisciplineList;
 
 /**
  * This is the model class for table "lessons".
@@ -25,8 +24,8 @@ use app\module\handbook\models\DisciplineList;
  * @property integer $all_speciality
  * @property integer $lesson_number
  *
+ * @property DisciplineDistribution $idDiscipline
  * @property Classrooms $idClassroom
- * @property Discipline $idDiscipline
  * @property Faculty $idFaculty
  * @property Groups $idGroup
  * @property Okr $idOkr
@@ -35,6 +34,7 @@ use app\module\handbook\models\DisciplineList;
  */
 class Lessons extends \yii\db\ActiveRecord
 {
+    
     public $semestr;
     public $course_get;
     /**
@@ -85,25 +85,17 @@ class Lessons extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClassroom()
+    public function getDiscipline()
     {
-        return $this->hasOne(Classrooms::className(), ['classrooms_id' => 'id_classroom']);
+        return $this->hasOne(DisciplineDistribution::className(), ['discipline_distribution_id' => 'id_discipline']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDiscipline()
+    public function getClassroom()
     {
-        return $this->hasOne(Discipline::className(), ['discipline_id' => 'id_discipline']);
-    }
-    
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDisciplineName()
-    {
-        return $this->hasOne(DisciplineList::className(), ['discipline_id' => 'discipline_name']);
+        return $this->hasOne(Classrooms::className(), ['classrooms_id' => 'id_classroom']);
     }
 
     /**

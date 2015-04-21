@@ -85,11 +85,9 @@ $this->params['breadcrumbs'][] = $spec_name['speciality_name'];
           <tr>
             <td class="lesson_time">
               <?php echo $lt['lesson_time_name'];?> <br/> <?php echo $lt['begin_time'];?> <br/> - <br/> <?php echo $lt['end_time'];?> 
-            </td>            
+            </td>           
             <td class="day_info_in_editor">
-              <div class="info_in_editor bottom_ccc_border">
-                
-                <?php                 
+            <?php                 
                 unset($one_lesson);
                         $one_lesson = Lessons::findOne([
                                         'semester' => $semestr, 
@@ -102,7 +100,12 @@ $this->params['breadcrumbs'][] = $spec_name['speciality_name'];
                                         'id_group' => $id_group
                             ]);      
                         $lesson_id = $one_lesson['lesson_id'];
-                ?>
+                if(!(empty($one_lesson)) && $one_lesson['is_holiday'] == 1){
+                    echo '<div class="info_in_editor">';
+                }else{
+                    echo '<div class="info_in_editor bottom_ccc_border">';
+                }
+            ?>        
                   <div id="lesson_id<?php echo $lesson_id;?>"></div>
                 <?php
                 if(empty($one_lesson)){

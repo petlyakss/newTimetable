@@ -64,8 +64,18 @@ class LessonsController extends Controller
     public function actionCreate()
     {
         $model = new Lessons();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            if($model->is_holiday == 1){
+                $model->lesson_id = 0;
+                $model->id_discipline = 0;
+                $model->id_teacher = 0;
+                $model->id_classroom = 0;
+                $model->is_holiday = 1;
+        }
+            
+            var_dump($model);
             $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#lesson_id'.$model->lesson_id);    
             return $this->redirect($url);
         } else {
@@ -132,6 +142,13 @@ class LessonsController extends Controller
     {
         $model = $this->findModel($id);
 
+        if($model->is_holiday == 1){
+                $model->lesson_id = 0;
+                $model->id_discipline = 0;
+                $model->id_teacher = 0;
+                $model->id_classroom = 0;
+                $model->is_holiday = 1;
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['editor', 'id' => $model->lesson_id, 'semestr' => $model->semester, 'course_get' => $model->course, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality].'#lesson_id'.$model->lesson_id);
             $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#lesson_id'.$model->lesson_id);    

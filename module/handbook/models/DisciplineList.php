@@ -39,7 +39,7 @@ class DisciplineList extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'discipline_id' => 'Discipline ID',
+            'discipline_id' => 'ID дисципліни',
             'discipline_name' => 'Дисципліна',
         ];
     }

@@ -45,6 +45,7 @@ AppAsset::register($this);
                         'label' => 'Довідники', 
                         'items' => [
                             ['label' => 'Кафедри', 'url' => 'index.php?r=handbook/cathedra'],
+                            ['label' => 'Перелік дисциплін', 'url' => 'index.php?r=handbook/disciplinelist'],
                             ['label' => 'Дисципліни', 'url' => 'index.php?r=handbook/discipline'],
                             //['label' => 'Факультети', 'url' => 'index.php?r=handbook/faculty'],
                             ['label' => 'Спеціальності', 'url' => 'index.php?r=handbook/speciality'],

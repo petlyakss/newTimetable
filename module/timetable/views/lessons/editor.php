@@ -29,6 +29,7 @@ $week = ["","Понеділок","Вівторок","Середа","Четвер
 
 $groups_list = Groups::findAll(["id_speciality" => $speciality, "inflow_year" => $inflow_year]);
 
+
 //$discipline_list = DisciplineList::findAll();
 
 
@@ -99,25 +100,39 @@ $this->params['breadcrumbs'][] = $spec_name['speciality_name'];
                                         'is_numerator' => 1,
                                         'id_group' => $id_group
                             ]);      
-                        $lesson_id = $one_lesson['lesson_id'];
-                if(!(empty($one_lesson)) && $one_lesson['is_holiday'] == 1){
-                    echo '<div class="info_in_editor">';
-                }else{
-                    echo '<div class="info_in_editor bottom_ccc_border">';
-                }
-            ?>        
-                  <div id="lesson_id<?php echo $lesson_id;?>"></div>
-                <?php
-                if(empty($one_lesson)){
-                ?>
+                        $lesson_id = $one_lesson['lesson_id'];                
+                        
+                        
+                        //echo '<div class="info_in_editor">';
+                        
                 
+                 
+            if(!(empty($one_lesson)) && $one_lesson['is_holiday'] == 1){    
+                echo '<div class="info_in_editor">';                   
+            }else{
+                echo '<div class="info_in_editor bottom_ccc_border">';
+            }
+                  
+            
+                
+                if(empty($one_lesson)){                
+                    echo '<div id="day_lesson'; echo $i.'_'.$lt['lesson_time_id']; echo '"></div>';
+                ?>
                     <?= Html::button('', ['value'=>Url::to('index.php?r=timetable/lessons/create&id_okr='.$id_okr.'&id_group='.$id_group.'&id_faculty='.$faculty.'&id_speciality='.$speciality.'&course='.$course_get.'&semester='.$semestr.'&is_numerator=1&day='.$i.'&lesson_number='.$lt['lesson_time_id']), 'class' => 'editor_edit_button fa fa-pencil-square-o', 'id' => 'modalButton', 'title' => 'Редагувати']); ?>
                 <?php
                     echo 'Інформація відсутня';                
                 }else{
                 ?>
                   <?= Html::button('', ['value'=>Url::to('index.php?r=timetable/lessons/update&id='.$lesson_id.'&id_okr='.$id_okr.'&id_group='.$id_group.'&id_faculty='.$faculty.'&id_speciality='.$speciality.'&course='.$course_get.'&semester='.$semestr.'&is_numerator=1&day='.$i.'&lesson_number='.$lt['lesson_time_id']), 'class' => 'editor_edit_button fa fa-pencil-square-o', 'id' => 'modalButton', 'title' => 'Редагувати']); ?>
-   
+                  <a href="<?= Url::toRoute(['delete', 'id' => $lesson_id]); ?>" data-pjax="0" data-method="post" data-confirm="Ви впевнені, що хочете видалити цей запис?" class="editor_delete_button"><i class="fa fa-trash"></i></a>
+                <?php
+                if(!(empty($one_lesson)) && $one_lesson['is_holiday'] == 1){
+                    echo '<div id="lesson_id'.$lesson_id.'"></div>';
+                    echo '<div id="day_lesson'; echo $i.'_'.$lt['lesson_time_id']; echo '"></div>
+                    <p class="dsr_in_editor">ДСР</p>';
+                    continue;
+                }
+                ?>
                   <p class="editor_p">
                     <h4>
                       <?php 
@@ -177,13 +192,14 @@ $this->params['breadcrumbs'][] = $spec_name['speciality_name'];
                         $lesson_id = $one_lesson['lesson_id'];
                 ?>
                   <div id="lesson_id<?php echo $lesson_id;?>"></div>
+                  <div id="day_lesson<?php echo $i.'_'.$lt['lesson_time_id'];?>"></div>
                 <?php
                 if(!(empty($one_lesson))){                    
                 ?>
                 
                     <?= Html::button('', ['value'=>Url::to('index.php?r=timetable/lessons/update&id='.$lesson_id.'id_okr='.$id_okr.'&id_group='.$id_group.'&id_faculty='.$faculty.'&id_speciality='.$speciality.'&course='.$course_get.'&semester='.$semestr.'&is_numerator=0&day='.$i.'&lesson_number='.$lt['lesson_time_id']), 'class' => 'editor_edit_button fa fa-pencil-square-o', 'id' => 'modalButton', 'title' => 'Редагувати']); ?>
-                
-                    <p class="editor_p">
+                    <a href="<?= Url::toRoute(['delete', 'id' => $lesson_id]); ?>" data-pjax="0" data-method="post" data-confirm="Ви впевнені, що хочете видалити цей запис?" class="editor_delete_button"><i class="fa fa-trash"></i></a>
+                   <p class="editor_p">
                     <h4>
                       <?php 
                         $disc_info = Discipline::findOne(['discipline_distribution_id' => $one_lesson['id_discipline']]);

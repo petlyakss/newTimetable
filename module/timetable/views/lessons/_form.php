@@ -42,18 +42,44 @@ foreach ($disciplines as $disc){
 <div class="lessons-form">
 
     <?php $form = ActiveForm::begin(); ?>
-     
-    <?php
+    <div class="row">
+    <div class="col-md-3 editor_checkbox">
+       <?php
     echo Html::label('ДСР');
         echo $form->field($model, 'is_holiday')->widget(SwitchInput::classname(), [
+        'type' => SwitchInput::CHECKBOX, 
+          'pluginOptions' => ['class' => 'dsfdf']
+    ])->label(false);
+    ?> 
+    </div> 
+    <div class="col-md-4 editor_checkbox">
+         <?php
+    echo Html::label('По чисельнику і по знаменнику');
+        echo $form->field($model, 'num_dem')->widget(SwitchInput::classname(), [
         'type' => SwitchInput::CHECKBOX
     ])->label(false);
     ?>
-    
+    </div>
+        <div class="col-md-2 editor_checkbox">
+            <?php
+        echo $form->field($model, 'all_group')->widget(SwitchInput::classname(), [
+        'type' => SwitchInput::CHECKBOX
+    ])->label('Для всієї групи');
+    ?>
+        </div>
+        <div class="col-md-3 editor_checkbox">
+            <?php
+        echo $form->field($model, 'all_speciality')->widget(SwitchInput::classname(), [
+        'type' => SwitchInput::CHECKBOX
+    ])->label('Для всієї спеціальності');
+    ?>
+        </div>
+    </div>
     <?=
         $form->field($model, 'id_discipline')->widget(Select2::classname(), [
             'data' => $discipline_array, //ArrayHelper::map(DisciplineList::find()->all(), 'discipline_id','discipline_name'),
             'language' => 'uk',
+            //'options' => ['placeholder' => 'Оберіть дисципліну ...'],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -64,6 +90,7 @@ foreach ($disciplines as $disc){
         $form->field($model, 'id_teacher')->widget(Select2::classname(), [
             'data' => ArrayHelper::map(Teachers::find()->all(), 'teacher_id','teacher_name'),
             'language' => 'uk',
+            //'options' => ['placeholder' => 'Оберіть викладача ...'],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -73,23 +100,12 @@ foreach ($disciplines as $disc){
         $form->field($model, 'id_classroom')->widget(Select2::classname(), [
             'data' => $classroomsArray,
             'language' => 'uk',
+            //'options' => ['placeholder' => 'Оберіть аудиторію ...'],
             'pluginOptions' => [
                 'allowClear' => true
             ],
         ])->label('Аудиторія і корпус');
     ?> 
-    
-    <?php
-        echo $form->field($model, 'all_group')->widget(SwitchInput::classname(), [
-        'type' => SwitchInput::CHECKBOX
-    ])->label('Для всієї групи');
-    ?>
-    
-    <?php
-        echo $form->field($model, 'all_speciality')->widget(SwitchInput::classname(), [
-        'type' => SwitchInput::CHECKBOX
-    ])->label('Для всієї спеціальності');
-    ?>
     
     <?= $form->field($model, 'id_group')->hiddenInput(['value' => $id_group])->label(false) ?>
 

@@ -118,12 +118,21 @@ a.desc:after {
           color: #B1B1B1;
           position: absolute;
           top: 3px;
-          right: 3px;
+          right: -3px;
           background: transparent;
           border: 0px;
         }
-        .editor_p{
-          margin: 0;
+        .editor_delete_button{
+          float: right;
+          color: #B1B1B1;
+          position: absolute;
+          top: -1px;
+          right: 20px;
+          background: transparent;
+          border: 0px;
+        }
+        .editor_delete_button i{
+            margin: -1px 3px;
         }
         .editor_h5{
           font-style: italic;
@@ -134,4 +143,12 @@ a.desc:after {
         }
         .day_name_col{
             width: 100px;
+        }
+        .dsr_in_editor{
+            font-size: 30px;
+            text-align: center;
+            color: #B1B1B1;
+        }
+        .editor_checkbox{
+            border: 0px solid red;
         }

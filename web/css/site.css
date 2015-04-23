@@ -158,3 +158,16 @@ a.desc:after {
         .editor_table{
             display: inline-block;
         }
+        .none_information_in_editor{
+            color: #999999;
+        }
+        .editor_edit_button:hover{
+            color: #23527C;
+        }
+        .lesson_div{
+            vertical-align: top;
+        }
+        .day_name_title{
+            font-size: 22px;
+            padding: 5px;
+        }

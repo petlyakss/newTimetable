@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\module\handbook\models\Faculty;
 use app\module\handbook\models\Speciality;
+use app\module\handbook\models\Groups;
 
 /**
  * LessonsController implements the CRUD actions for Lessons model.
@@ -74,7 +75,38 @@ class LessonsController extends Controller
                 $model->id_classroom = 0;
                 $model->is_holiday = 1;
         }*/
-            
+           /*if($model->all_speciality == 1){ 
+               $groups_arr = Groups::findAll(['id_speciality' => $model->id_speciality]);
+               foreach ($groups_arr as $gr){
+                   if($model->id_group == $gr['group_id']){
+                       echo 1;
+                       continue;
+                   }else{
+                   if($model->num_dem == 1){
+                       if($model->is_numerator == 1){
+                            $model->is_numerator = 0;
+                            $model->id_group = $gr['group_id'];
+                            $model->id_okr = $gr['id_okr'];
+                            //$model->insert();
+                            echo $gr['group_id']."  ";
+                       }else{
+                            $model->is_numerator = 1;
+                            $model->id_group = $gr['group_id'];
+                            $model->id_okr = $gr['id_okr'];
+                            //$model->insert();
+                            echo $gr['group_id']."  ";
+                       }
+                   }else{
+                        $model->id_group = $gr['group_id'];
+                        $model->id_okr = $gr['id_okr'];
+                        //$model->insert();
+                            echo $gr['group_id']."  ";
+                   }    
+                   }
+               }
+           }else{
+               
+           } */
             $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#lesson_id'.$model->lesson_id);    
             return $this->redirect($url);
         } else {

@@ -152,3 +152,9 @@ a.desc:after {
         .editor_checkbox{
             border: 0px solid red;
         }
+        .lessons-create{
+            overflow-x: scroll;
+        }
+        .editor_table{
+            display: inline-block;
+        }

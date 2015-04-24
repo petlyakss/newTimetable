@@ -65,9 +65,26 @@ class LessonsController extends Controller
     public function actionCreate()
     {
         $model = new Lessons();
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
+            if($model->num_dem == 1){
+                if($model->is_numerator == 1){
+                    $m = new Lessons;
+                    $m = $model;
+                    $m->is_numerator = 0;
+                    $m->save();
+                    unset($m);
+                    /*$model->is_numerator = 0;
+                    $model->save();
+                    $model->insert();*/
+                }else{
+                    $m = new Lessons;
+                    $m = $model;
+                    $m->is_numerator = 1;
+                    $m->insert();
+                    unset($m);
+                }
+            }   
             /*if($model->is_holiday == 1){
                 $model->lesson_id = 0;
                 $model->id_discipline = 0;
@@ -75,6 +92,9 @@ class LessonsController extends Controller
                 $model->id_classroom = 0;
                 $model->is_holiday = 1;
         }*/
+            
+            
+            
            /*if($model->all_speciality == 1){ 
                $groups_arr = Groups::findAll(['id_speciality' => $model->id_speciality]);
                foreach ($groups_arr as $gr){
@@ -87,22 +107,20 @@ class LessonsController extends Controller
                             $model->is_numerator = 0;
                             $model->id_group = $gr['group_id'];
                             $model->id_okr = $gr['id_okr'];
-                            //$model->insert();
-                            echo $gr['group_id']."  ";
+                            $model->insert();
                        }else{
                             $model->is_numerator = 1;
                             $model->id_group = $gr['group_id'];
                             $model->id_okr = $gr['id_okr'];
-                            //$model->insert();
-                            echo $gr['group_id']."  ";
+                            $model->insert();
                        }
                    }else{
                         $model->id_group = $gr['group_id'];
                         $model->id_okr = $gr['id_okr'];
-                        //$model->insert();
-                            echo $gr['group_id']."  ";
+                        $model->insert();
                    }    
                    }
+                   var_dump($model);
                }
            }else{
                

@@ -9,7 +9,7 @@ use app\module\handbook\models\Housing;
 use app\module\handbook\models\SpecClasses;
 
 /* @var $this yii\web\View */
-/* @var $model app\module\handbook\models\Classrooms */
+/* @var $model app\module\handbook\models\ClassRooms */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

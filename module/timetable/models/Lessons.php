@@ -25,7 +25,7 @@ use Yii;
  * @property integer $lesson_number
  *
  * @property DisciplineDistribution $idDiscipline
- * @property Classrooms $idClassroom
+ * @property ClassRooms $idClassroom
  * @property Faculty $idFaculty
  * @property Groups $idGroup
  * @property Okr $idOkr
@@ -76,10 +76,11 @@ class Lessons extends \yii\db\ActiveRecord
             'id_teacher' => 'Id Teacher',
             'id_classroom' => 'Id Classroom',
             'day' => 'Day',
-            'is_holiday' => 'Is Holiday',
-            'all_group' => 'All Group',
-            'all_speciality' => 'All Speciality',
+            'is_holiday' => 'ДСР',
+            'all_group' => 'Для всієї групи',
+            'all_speciality' => 'Для всієї спеціальності',
             'lesson_number' => 'Lesson Number',
+            'num_dem' => 'По чисельнику і по знаменнику'
         ];
     }
 
@@ -96,7 +97,7 @@ class Lessons extends \yii\db\ActiveRecord
      */
     public function getClassroom()
     {
-        return $this->hasOne(Classrooms::className(), ['classrooms_id' => 'id_classroom']);
+        return $this->hasOne(ClassRooms::className(), ['classrooms_id' => 'id_classroom']);
     }
 
     /**

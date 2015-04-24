@@ -10,7 +10,7 @@ use Yii;
  * @property integer $housing_id
  * @property string $name
  *
- * @property Classrooms[] $classrooms
+ * @property ClassRooms[] $classrooms
  */
 class Housing extends \yii\db\ActiveRecord
 {
@@ -47,8 +47,8 @@ class Housing extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClassrooms()
+    public function getClassRooms()
     {
-        return $this->hasMany(Classrooms::className(), ['id_housing' => 'housing_id']);
+        return $this->hasMany(ClassRooms::className(), ['id_housing' => 'housing_id']);
     }
 }

@@ -3,7 +3,7 @@
 namespace app\module\handbook\controllers;
 
 use Yii;
-use app\module\handbook\models\Classrooms;
+use app\module\handbook\models\ClassRooms;
 use app\module\handbook\models\ClassRoomsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use app\module\handbook\models\ClassType;
 
 /**
- * ClassRoomsController implements the CRUD actions for Classrooms model.
+ * ClassRoomsController implements the CRUD actions for ClassRooms model.
  */
 class ClassRoomsController extends Controller
 {
@@ -28,7 +28,7 @@ class ClassRoomsController extends Controller
     }
 
     /**
-     * Lists all Classrooms models.
+     * Lists all ClassRooms models.
      * @return mixed
      */
     public function actionIndex()
@@ -43,7 +43,7 @@ class ClassRoomsController extends Controller
     }
 
     /**
-     * Displays a single Classrooms model.
+     * Displays a single ClassRooms model.
      * @param integer $id
      * @return mixed
      */
@@ -55,13 +55,13 @@ class ClassRoomsController extends Controller
     }
 
     /**
-     * Creates a new Classrooms model.
+     * Creates a new ClassRooms model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Classrooms();
+        $model = new ClassRooms();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
@@ -83,7 +83,7 @@ class ClassRoomsController extends Controller
     }
 
     /**
-     * Updates an existing Classrooms model.
+     * Updates an existing ClassRooms model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -119,7 +119,7 @@ class ClassRoomsController extends Controller
     }
 
     /**
-     * Deletes an existing Classrooms model.
+     * Deletes an existing ClassRooms model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -134,15 +134,15 @@ class ClassRoomsController extends Controller
     }
 
     /**
-     * Finds the Classrooms model based on its primary key value.
+     * Finds the ClassRooms model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Classrooms the loaded model
+     * @return ClassRooms the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Classrooms::findOne($id)) !== null) {
+        if (($model = ClassRooms::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

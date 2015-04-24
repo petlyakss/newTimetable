@@ -11,7 +11,7 @@ use Yii;
  * @property integer $spec_class_id
  *
  * @property SpecClasses $specClass
- * @property Classrooms $classroom
+ * @property ClassRooms $classroom
  */
 class ClassType extends \yii\db\ActiveRecord
 {
@@ -58,6 +58,6 @@ class ClassType extends \yii\db\ActiveRecord
      */
     public function getClassroom()
     {
-        return $this->hasOne(Classrooms::className(), ['classrooms_id' => 'classroom_id']);
+        return $this->hasOne(ClassRooms::className(), ['classrooms_id' => 'classroom_id']);
     }
 }

@@ -20,7 +20,7 @@ use app\module\handbook\models\DisciplineList;
  * @property integer $semestr_hours
  * @property integer $id_classroom
  *
- * @property Classrooms $idClassroom
+ * @property ClassRooms $idClassroom
  * @property Cathedra $idCathedra
  * @property Discipline $idDiscipline
  * @property Discipline[] $disciplines
@@ -73,7 +73,7 @@ class Discipline extends \yii\db\ActiveRecord
      */
     public function getClassroom()
     {
-        return $this->hasOne(Classrooms::className(), ['classrooms_id' => 'id_classroom']);
+        return $this->hasOne(ClassRooms::className(), ['classrooms_id' => 'id_classroom']);
     }
 
     /**

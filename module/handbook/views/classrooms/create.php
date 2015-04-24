@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\module\handbook\models\Classrooms */
+/* @var $model app\module\handbook\models\ClassRooms */
 
 $this->title = 'Додати аудиторію';
 $this->params['breadcrumbs'][] = ['label' => 'Аудиторії', 'url' => ['index']];

@@ -8,7 +8,7 @@ use app\module\handbook\models\DisciplineList;
 use app\module\handbook\models\Cathedra;
 use app\module\handbook\models\LessonsType;
 use app\module\handbook\models\Groups;
-use app\module\handbook\models\Classrooms;
+use app\module\handbook\models\ClassRooms;
 use app\module\handbook\models\Housing;
 
 /* @var $this yii\web\View */
@@ -17,7 +17,7 @@ use app\module\handbook\models\Housing;
 
 
 
-    $classes = Classrooms::find()->all();
+    $classes = ClassRooms::find()->all();
     foreach ($classes as $cl){ 
         $housing = Housing::findOne(['housing_id' => $cl['id_housing']]);
         $classroomsArray[$cl['classrooms_id']] = $cl['classrooms_number'].' - '.$housing['name'];

@@ -11,7 +11,7 @@ use app\module\handbook\models\Teachers;
 use app\module\handbook\models\Discipline;
 use app\module\handbook\models\LessonsType;
 use app\module\handbook\models\Housing;
-use app\module\handbook\models\Classrooms;
+use app\module\handbook\models\ClassRooms;
 use yii\bootstrap\Modal;
 
 use yii\helpers\Url;
@@ -60,12 +60,12 @@ function getDisciplineType($id_discipline){
     return $discipline_type['lesson_type_name'];
 }
 function getHousingName($id_classroom){
-    $classroom_array = Classrooms::findOne(['classrooms_id' => $id_classroom]);
+    $classroom_array = ClassRooms::findOne(['classrooms_id' => $id_classroom]);
     $housing_name = Housing::findOne(['housing_id' => $classroom_array['id_housing']]);
     return $housing_name['name'];
 }
 function getClassromNumber($id_classroom){
-    $classroom_array = Classrooms::findOne(['classrooms_id' => $id_classroom]);
+    $classroom_array = ClassRooms::findOne(['classrooms_id' => $id_classroom]);
     return 'Аудиторія № '.$classroom_array['classrooms_number'];
 }
 function day_print($day, $lesson_number, $id_group, $is_numerator, $id_okr){

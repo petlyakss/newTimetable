@@ -6,7 +6,7 @@ use app\module\handbook\models\ClassType;
 use app\module\handbook\models\SpecClasses;
 
 /* @var $this yii\web\View */
-/* @var $model app\module\handbook\models\Classrooms */
+/* @var $model app\module\handbook\models\ClassRooms */
 
 $this->title = 'Аудиторія №'.$model->classrooms_number;
 $this->params['breadcrumbs'][] = ['label' => 'Аудиторії', 'url' => ['index']];

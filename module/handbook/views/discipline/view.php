@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use app\module\handbook\models\Classrooms;
+use app\module\handbook\models\ClassRooms;
 use app\module\handbook\models\Housing;
 use app\module\handbook\models\DisciplineList;
 
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Дисципліни', 'url' => ['
 $this->params['breadcrumbs'][] = $this->title;
 
 function auditory($val){
-    $classes = Classrooms::findOne(['classrooms_id' => $val]);
+    $classes = ClassRooms::findOne(['classrooms_id' => $val]);
     $housing = Housing::findOne(['housing_id' => $classes['id_housing']]);
     return $classes['classrooms_number'].' - '.$housing['name'];
 }

@@ -5,13 +5,13 @@ namespace app\module\handbook\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\module\handbook\models\Classrooms;
+use app\module\handbook\models\ClassRooms;
 use app\module\handbook\models\Housing;
 
 /**
- * ClassRoomsSearch represents the model behind the search form about `app\module\handbook\models\Classrooms`.
+ * ClassRoomsSearch represents the model behind the search form about `app\module\handbook\models\ClassRooms`.
  */
-class ClassRoomsSearch extends Classrooms
+class ClassRoomsSearch extends ClassRooms
 {
     public $class_type_name;
     public $housing_name;

@@ -20,7 +20,7 @@ use app\module\handbook\models\ClassType;
  * @property ClassType[] $classTypes
  * @property Housing $idHousing
  */
-class Classrooms extends \yii\db\ActiveRecord
+class ClassRooms extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\module\handbook\models\Housing;
-use app\module\handbook\models\Classrooms;
+use app\module\handbook\models\ClassRooms;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\module\handbook\models\DisciplineSearch */
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
               'header' => 'Аудиторія',
               'value' => function($data){
-                  $classes = Classrooms::findOne(['classrooms_id' => $data->id_classroom]);
+                  $classes = ClassRooms::findOne(['classrooms_id' => $data->id_classroom]);
                   $housing = Housing::findOne(['housing_id' => $classes['id_housing']]);
                   return $classes['classrooms_number'].' - '.$housing['name'];
               }

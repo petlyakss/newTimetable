@@ -51,7 +51,7 @@ class Teachers extends \yii\db\ActiveRecord
             'teacher_id' => 'ID викладача',
             'teacher_name' => 'П.І.Б.',
             'id_position' => 'Посада',
-            'id_academic_status' => 'Вчене звання',
+            'id_academic_status' => 'Науковий ступінь',
             'id_cathedra' => 'Кафедра',
         ];
     }

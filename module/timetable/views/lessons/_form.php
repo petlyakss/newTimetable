@@ -44,40 +44,20 @@ foreach ($disciplines as $disc){
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
     <div class="col-md-2 editor_checkbox">
-       <?php/*
-    echo Html::label('ДСР');
-        echo $form->field($model, 'is_holiday')->widget(SwitchInput::classname(), [
-        'type' => SwitchInput::CHECKBOX, 
-          'pluginOptions' => ['class' => 'dsfdf']
-    ])->label(false);*/
-    ?> 
+       
      <?= $form->field($model, 'is_holiday')->checkbox() ?>
    
     </div> 
     <div class="col-md-4 editor_checkbox">
-         <?php/*
-    echo Html::label('По чисельнику і по знаменнику');
-        echo $form->field($model, 'num_dem')->widget(SwitchInput::classname(), [
-        'type' => SwitchInput::CHECKBOX
-    ])->label(false);*/
-         //echo Html::label('По чисельнику і по знаменнику');
-    ?>
+         
         <?= $form->field($model, 'num_dem')->checkbox() ?>
     </div>
         <div class="col-md-3 editor_checkbox">
-            <?php/*
-        echo $form->field($model, 'all_group')->widget(SwitchInput::classname(), [
-        'type' => SwitchInput::CHECKBOX
-    ])->label('Для всієї групи');*/
-    ?>
+            
             <?= $form->field($model, 'all_group')->checkbox() ?>
         </div>
         <div class="col-md-3 editor_checkbox">
-            <?php/*
-        echo $form->field($model, 'all_speciality')->widget(SwitchInput::classname(), [
-        'type' => SwitchInput::CHECKBOX
-    ])->label('Для всієї спеціальності');*/
-    ?>
+           
             <?= $form->field($model, 'all_speciality')->checkbox() ?>
         </div>
     </div>

@@ -177,6 +177,7 @@ function day_print($day, $lesson_number, $id_group, $is_numerator, $id_okr){
     echo '</div>';
 }
 ?>
+                
 <div class="lessons-create col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>

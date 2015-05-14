@@ -139,9 +139,9 @@ class LessonsController extends Controller
         $model = new Lessons();
 
         if ($model->load(Yii::$app->request->post())) {//$faculty->load(Yii::$app->request->post()) && $speciality->load(Yii::$app->request->post()) && 
-//            var_dump($model);
-//            exit();
-            return $this->redirect(['editor', 'semestr' => $model->semestr, 'course_get' => $model->course_get, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality]);
+           //var_dump($model);
+            //exit();
+            return $this->redirect(['editor', 'semestr' => $model->semestr, 'course_get' => $model->course_get, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality, 'group_id' => $model->id_group]);
         } else {
             return $this->render('creator_index', [
                 'model' => $model
@@ -174,6 +174,29 @@ class LessonsController extends Controller
         if($countPosts>0){
             foreach($posts as $post){
                 echo "<option value='".$post->speciality_id."'>".$post->speciality_name."</option>";
+            }
+        }
+        else{
+            echo "<option>-</option>";
+        }
+ 
+    }
+    
+    public function actionGroups_list($id,$course)
+    {       
+        $infl = date('Y') - $course;
+        $countPosts = Groups::find()
+                ->where(['id_speciality' =>  $id])
+                ->count();
+ 
+        $posts = Groups::find()
+                ->where(['id_speciality' => $id, 'inflow_year' => $infl])
+                ->orderBy('id_speciality DESC')
+                ->all();
+ 
+        if($countPosts>0){
+            foreach($posts as $post){
+                echo "<option value='".$post->group_id."'>".$post->main_group_name."</option>";
             }
         }
         else{

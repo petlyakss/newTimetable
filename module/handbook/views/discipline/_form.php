@@ -19,6 +19,7 @@ use app\module\handbook\models\Faculty;
 
 
     $classes = ClassRooms::find()->all();
+    $classroomsArray[0] = "-";
     foreach ($classes as $cl){ 
         $housing = Housing::findOne(['housing_id' => $cl['id_housing']]);
         $classroomsArray[$cl['classrooms_id']] = $cl['classrooms_number'].' - '.$housing['name'];
@@ -87,6 +88,7 @@ foreach($all_faculty as $af){
             'pluginOptions' => [
                 'allowClear' => true
             ],
+            'options' => ['placeholder' => 'Оберіть аудиторію ...'],
         ])->label('Аудиторія');
     ?> 
     

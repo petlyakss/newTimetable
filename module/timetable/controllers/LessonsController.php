@@ -20,7 +20,8 @@ class LessonsController extends Controller
 {
     public function behaviors()
     {
-        return [
+        
+        return [            
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -125,7 +126,7 @@ class LessonsController extends Controller
            }else{
                
            } */
-            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#lesson_id'.$model->lesson_id);    
+            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'&group_id='.$model->id_group.'#lesson_id'.$model->lesson_id);    
             return $this->redirect($url);
         } else {
             return $this->renderAjax('create', [
@@ -223,7 +224,7 @@ class LessonsController extends Controller
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['editor', 'id' => $model->lesson_id, 'semestr' => $model->semester, 'course_get' => $model->course, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality].'#lesson_id'.$model->lesson_id);
-            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#lesson_id'.$model->lesson_id);    
+            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'&group_id='.$model->id_group.'#lesson_id'.$model->lesson_id);    
             return $this->redirect($url);
                 
                 
@@ -246,7 +247,7 @@ class LessonsController extends Controller
         
         $this->findModel($id)->delete();
         
-        $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#day_lesson'.$model->day.'_'.$model->lesson_number);    
+        $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'&group_id='.$model->id_group.'#day_lesson'.$model->day.'_'.$model->lesson_number);    
         return $this->redirect($url);
     }
 

@@ -10,6 +10,7 @@ use app\module\handbook\models\LessonsType;
 use app\module\handbook\models\Groups;
 use app\module\handbook\models\ClassRooms;
 use app\module\handbook\models\Housing;
+use app\module\handbook\models\Faculty;
 
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\Discipline */
@@ -23,6 +24,16 @@ use app\module\handbook\models\Housing;
         $classroomsArray[$cl['classrooms_id']] = $cl['classrooms_number'].' - '.$housing['name'];
     }
     
+    $all_faculty = Faculty::find()->orderBy('faculty_name ASC')->all();
+
+foreach($all_faculty as $af){
+    $tmp_cathedra = Cathedra::find()->where(['id_faculty' => $af['faculty_id']])->orderBy('cathedra_name ASC')->all();
+    foreach($tmp_cathedra as $tc){
+        $all_cathedra[$tc['cathedra_id']] = $tc['cathedra_name']." / ".$af['faculty_name'];
+    }
+    
+    
+}
 ?>
 
 <div class="discipline-form">
@@ -41,7 +52,7 @@ use app\module\handbook\models\Housing;
     
     <?=
         $form->field($model, 'id_cathedra')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(Cathedra::find()->all(), 'cathedra_id','cathedra_name'),
+            'data' => $all_cathedra,//ArrayHelper::map(Cathedra::find()->all(), 'cathedra_id','cathedra_name'),
             'language' => 'uk',
             'pluginOptions' => [
                 'allowClear' => true

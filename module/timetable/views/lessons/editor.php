@@ -30,6 +30,8 @@ $week = ["","Понеділок","Вівторок","Середа","Четвер
 $groups_list = Groups::findAll(["id_speciality" => $speciality, "inflow_year" => $inflow_year]);
 $less_time = LessonTime::find()->all();
 
+//var_dump($groups_list);
+
 if(count($groups_list) > 1){//Определяем есть ли у группы подгруппы
     $group_has_subgroup = true;
 }else{

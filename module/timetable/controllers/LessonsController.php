@@ -20,7 +20,8 @@ class LessonsController extends Controller
 {
     public function behaviors()
     {
-        return [
+        
+        return [            
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -125,7 +126,7 @@ class LessonsController extends Controller
            }else{
                
            } */
-            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#lesson_id'.$model->lesson_id);    
+            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'&group_id='.$model->id_group.'#lesson_id'.$model->lesson_id);    
             return $this->redirect($url);
         } else {
             return $this->renderAjax('create', [
@@ -139,9 +140,9 @@ class LessonsController extends Controller
         $model = new Lessons();
 
         if ($model->load(Yii::$app->request->post())) {//$faculty->load(Yii::$app->request->post()) && $speciality->load(Yii::$app->request->post()) && 
-//            var_dump($model);
-//            exit();
-            return $this->redirect(['editor', 'semestr' => $model->semestr, 'course_get' => $model->course_get, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality]);
+           //var_dump($model);
+            //exit();
+            return $this->redirect(['editor', 'semestr' => $model->semestr, 'course_get' => $model->course_get, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality, 'group_id' => $model->id_group]);
         } else {
             return $this->render('creator_index', [
                 'model' => $model
@@ -181,6 +182,29 @@ class LessonsController extends Controller
         }
  
     }
+    
+    public function actionGroups_list($id,$course)
+    {       
+        $infl = date('Y') - $course;
+        $countPosts = Groups::find()
+                ->where(['id_speciality' =>  $id])
+                ->count();
+ 
+        $posts = Groups::find()
+                ->where(['id_speciality' => $id, 'inflow_year' => $infl])
+                ->orderBy('id_speciality DESC')
+                ->all();
+ 
+        if($countPosts>0){
+            foreach($posts as $post){
+                echo "<option value='".$post->group_id."'>".$post->main_group_name."</option>";
+            }
+        }
+        else{
+            echo "<option>-</option>";
+        }
+ 
+    }
     /**
      * Updates an existing Lessons model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -200,7 +224,7 @@ class LessonsController extends Controller
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['editor', 'id' => $model->lesson_id, 'semestr' => $model->semester, 'course_get' => $model->course, 'faculty_id' => $model->id_faculty, 'speciality_id' => $model->id_speciality].'#lesson_id'.$model->lesson_id);
-            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#lesson_id'.$model->lesson_id);    
+            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'&group_id='.$model->id_group.'#lesson_id'.$model->lesson_id);    
             return $this->redirect($url);
                 
                 
@@ -223,7 +247,7 @@ class LessonsController extends Controller
         
         $this->findModel($id)->delete();
         
-        $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'#day_lesson'.$model->day.'_'.$model->lesson_number);    
+        $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'&group_id='.$model->id_group.'#day_lesson'.$model->day.'_'.$model->lesson_number);    
         return $this->redirect($url);
     }
 

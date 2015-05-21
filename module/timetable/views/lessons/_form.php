@@ -56,10 +56,10 @@ foreach ($disciplines as $disc){
             
             <?= $form->field($model, 'all_group')->checkbox() ?>
         </div>
-        <div class="col-md-3 editor_checkbox">
+        <!--<div class="col-md-3 editor_checkbox">
            
-            <?= $form->field($model, 'all_speciality')->checkbox() ?>
-        </div>
+            <?php// $form->field($model, 'all_speciality')->hiddenInput() ?>
+        </div>-->
     </div>
     <?=
         $form->field($model, 'id_discipline')->widget(Select2::classname(), [

@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DisciplineListController implements the CRUD actions for DisciplineList model.
+ * DisciplinelistController implements the CRUD actions for DisciplineList model.
  */
-class DisciplineListController extends Controller
+class DisciplinelistController extends Controller
 {
     public function behaviors()
     {

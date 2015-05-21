@@ -22,15 +22,20 @@ $semestr = $_GET['semestr'];
 $course_get = $_GET['course_get'];
 $faculty = $_GET['faculty_id'];
 $speciality = $_GET['speciality_id'];
+$group_id = $_GET['group_id'];
 $inflow_year = date('Y') - $course_get;
 $spec_name = Speciality::findOne(["speciality_id" => $speciality]);
 $faculty_name = Faculty::findOne(["faculty_id" => $faculty]);
 $week = ["","Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота"];
 
-$groups_list = Groups::findAll(["id_speciality" => $speciality, "inflow_year" => $inflow_year]);
+$groups_list = Groups::findAll(["id_speciality" => $speciality, "inflow_year" => $inflow_year, "group_id" => $group_id]);
 $less_time = LessonTime::find()->all();
 
+<<<<<<< HEAD
 //var_dump($groups_list);
+=======
+//var_dump($group_id);
+>>>>>>> origin/master
 
 if(count($groups_list) > 1){//Определяем есть ли у группы подгруппы
     $group_has_subgroup = true;

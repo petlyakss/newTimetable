@@ -20,7 +20,7 @@ use app\module\handbook\models\Faculty;
 
     <?= $form->field($model, 'id_deanery')->textInput() ?>
 
-    <?= $form->field($model, 'id_faculty')->dropDownList(ArrayHelper::map(Faculty::find()->all(), 'faculty_id', 'faculty_name')) ?>
+    <?= $form->field($model, 'id_faculty')->dropDownList(ArrayHelper::map(Faculty::find()->orderBy('faculty_name ASC')->all(), 'faculty_id', 'faculty_name')) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Додати' : 'Оновити', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

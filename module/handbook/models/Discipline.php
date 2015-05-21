@@ -1,9 +1,9 @@
 <?php
 
 namespace app\module\handbook\models;
+use app\module\handbook\models\Cathedra;
 
 use Yii;
-use app\module\handbook\models\DisciplineList;
 
 /**
  * This is the model class for table "discipline_distribution".
@@ -20,16 +20,15 @@ use app\module\handbook\models\DisciplineList;
  * @property integer $semestr_hours
  * @property integer $id_classroom
  *
- * @property ClassRooms $idClassroom
- * @property Cathedra $idCathedra
  * @property Discipline $idDiscipline
  * @property Discipline[] $disciplines
- * @property Groups $idGroup
  * @property LessonsType $idLessonsType
+ * @property DisciplineGroups[] $disciplineGroups
+ * @property Lessons[] $lessons
  */
 class Discipline extends \yii\db\ActiveRecord
 {
-    public $groups;
+    public $mgroups;
     /**
      * @inheritdoc
      */
@@ -45,8 +44,8 @@ class Discipline extends \yii\db\ActiveRecord
     {
         return [
             [['id_discipline', 'id_edbo', 'id_deanery', 'id_cathedra', 'id_lessons_type', 'course', 'hours', 'semestr_hours'], 'required'],
-            [['id_discipline', 'id_edbo', 'id_deanery', 'id_cathedra', 'id_lessons_type', 'course', 'hours', 'semestr_hours', 'id_classroom'], 'integer'],
-            [['id_classroom', 'id_group', 'groups'], 'safe']
+            [['id_discipline', 'id_edbo', 'id_deanery', 'id_cathedra', 'id_lessons_type', 'id_group', 'course', 'hours', 'semestr_hours', 'id_classroom'], 'integer'],
+            [['mgroups', 'id_classroom'],'safe']
         ];
     }
 
@@ -73,11 +72,10 @@ class Discipline extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClassroom()
+    public function getIdDiscipline()
     {
-        return $this->hasOne(ClassRooms::className(), ['classrooms_id' => 'id_classroom']);
+        return $this->hasOne(Discipline::className(), ['discipline_id' => 'id_discipline']);
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -85,15 +83,6 @@ class Discipline extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Cathedra::className(), ['cathedra_id' => 'id_cathedra']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDiscipline()
-    {
-        return $this->hasOne(Discipline::className(), ['discipline_id' => 'id_discipline']);
-    }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -105,19 +94,34 @@ class Discipline extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGroup()
+    public function getLessonsType()
     {
-        return $this->hasOne(Groups::className(), ['group_id' => 'id_group']);
+        return $this->hasOne(LessonsType::className(), ['id' => 'id_lessons_type']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLessonsType()
+    public function getDisciplineGroups()
     {
-        return $this->hasOne(LessonsType::className(), ['id' => 'id_lessons_type']);
+        return $this->hasMany(DisciplineGroups::className(), ['id_discipline' => 'discipline_distribution_id']);
     }
-        /**
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLessons()
+    {
+        return $this->hasMany(Lessons::className(), ['id_discipline' => 'discipline_distribution_id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroup()
+    {
+        return $this->hasOne(Groups::className(), ['group_id' => 'id_group']);
+    }
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getDisciplineName()

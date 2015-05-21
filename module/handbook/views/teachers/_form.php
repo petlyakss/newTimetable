@@ -45,15 +45,16 @@ foreach($all_faculty as $af){
             'data' => $all_cathedra,//ArrayHelper::map(Cathedra::find()->all(),'cathedra_id','cathedra_name'),
         ]);        
     ?>    
-    <?php
-        echo Html::label("Додаткові кафедри");
-        echo Select2::widget([
-            'model' => $model,
-            'attribute' => 'teacher_other_cathedra',
-            'language' => 'ru',
-            'data' => ArrayHelper::map(Cathedra::find()->all(),'cathedra_id','cathedra_name'),
+
+    <?=
+        $form->field($model, 'teacher_other_cathedra')->widget(Select2::classname(), [
+            'data' => $all_cathedra,//ArrayHelper::map(Cathedra::find()->all(), 'cathedra_id','cathedra_name'),
+            'language' => 'uk',
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
             'options' => ['multiple' => true]
-        ]);        
+        ])->label('Додаткові кафедри');
     ?>
     <br/>
     <div class="form-group">

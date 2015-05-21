@@ -2,11 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use app\module\handbook\models\Housing;
-use app\module\handbook\models\ClassRooms;
+use app\module\handbook\models\DisciplineGroups;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\module\handbook\models\DisciplineSearch */
+/* @var $searchModel app\module\handbook\controllers\DisciplineSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Дисципліни';
@@ -33,19 +32,29 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id_deanery',
             'cathedra.cathedra_name',
             'lessonsType.lesson_type_name',
-            'group.main_group_name',
+            [
+              'header' => 'Групи',
+              'format' => 'raw',
+              'value' => function($data){
+                /* @var $data app\module\handbook\models\ClassRoomsSearch */
+                $discgr = $data->getDisciplineGroups()->all();
+                $result = "<ul>";
+                foreach ($discgr as $dg){
+                    /* @var $classType app\module\handbook\models\ClassType */
+                  $groups = $dg->getGroup()->all();
+                  foreach ($groups as $group){
+                    /* @var $specClass app\module\handbook\models\SpecClasses */
+                    $result .= "<li>".$group->main_group_name.'</li>';
+                  }
+                }
+                $result .= "</ul>";
+                return $result;
+              }
+            ],
             'course',
             'hours',
             'semestr_hours',
-            [
-              'header' => 'Аудиторія',
-              'value' => function($data){
-                  $classes = ClassRooms::findOne(['classrooms_id' => $data->id_classroom]);
-                  $housing = Housing::findOne(['housing_id' => $classes['id_housing']]);
-                  return $classes['classrooms_number'].' - '.$housing['name'];
-              }
-            ],
-            //'classroom.classrooms_number',
+            //'id_classroom',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -10,6 +10,14 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\Speciality */
 /* @var $form yii\widgets\ActiveForm */
+$all_faculty = Faculty::find()->orderBy('faculty_name ASC')->all();
+
+foreach($all_faculty as $af){
+    $tmp_cathedra = Cathedra::find()->where(['id_faculty' => $af['faculty_id']])->orderBy('cathedra_name ASC')->all();
+    foreach($tmp_cathedra as $tc){
+        $all_cathedra[$tc['cathedra_id']] = $tc['cathedra_name']." / ".$af['faculty_name'];
+    }  
+}
 ?>
 
 <div class="speciality-form">
@@ -22,17 +30,15 @@ use kartik\select2\Select2;
 
     <?=
         $form->field($model, 'id_cathedra')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(Cathedra::find()->all(), 'cathedra_id', 'cathedra_name'),
+            'data' => $all_cathedra,//ArrayHelper::map(Cathedra::find()->all(), 'cathedra_id','cathedra_name'),
             'language' => 'uk',
             'pluginOptions' => [
                 'allowClear' => true
             ],
-        ]);
+        ])->label('Кафедра');
     ?>
    
-    <?php $faculty = ArrayHelper::map(Faculty::find()->all(), 'faculty_id', 'faculty_name'); ?>
-    <?= 
-        $form->field($model, 'id_faculty')->dropDownList(ArrayHelper::multisort($faculty, 'faculty_name', [ArrayHelper::SORT_ASC]))?>
+   <?= $form->field($model, 'id_faculty')->dropDownList(ArrayHelper::map(Faculty::find()->orderBy('faculty_name ASC')->all(), 'faculty_id', 'faculty_name')) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Додати' : 'Оновити', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -11,15 +11,12 @@ use kartik\switchinput\SwitchInput;
 use app\module\handbook\models\Teachers;
 use app\module\handbook\models\ClassRooms;
 use app\module\handbook\models\Housing;
+use app\module\handbook\models\Groups;
 
 /* @var $this yii\web\View */
 /* @var $model app\module\timetable\models\Lessons */
 /* @var $form yii\widgets\ActiveForm */
-$classes = ClassRooms::find()->all();
-    foreach ($classes as $cl){ 
-        $housing = Housing::findOne(['housing_id' => $cl['id_housing']]);
-        $classroomsArray[$cl['classrooms_id']] = $cl['classrooms_number'].' - '.$housing['name'];
-    }
+
     
 $lesson_number = $_GET['lesson_number'];
 $day = $_GET['day'];
@@ -30,6 +27,15 @@ $semester = $_GET['semester'];
 $is_numerator = $_GET['is_numerator'];
 $id_group = $_GET['id_group'];
 $id_okr = $_GET['id_okr'];
+
+$students_in_group = Groups::find()->where(['group_id' => $id_group ])->all();
+$sig = $students_in_group[0]['number_of_students']+5;
+$classes = ClassRooms::find()->Where('seats>'.$sig)->all();
+    foreach ($classes as $cl){ 
+        $housing = Housing::findOne(['housing_id' => $cl['id_housing']]);
+        $classroomsArray[$cl['classrooms_id']] = $cl['classrooms_number'].' - '.$housing['name'];
+    }
+
 
 $disciplines = Discipline::find()->all();
 foreach ($disciplines as $disc){

@@ -32,7 +32,7 @@ if(intval($_GET['parent_id']) > 0){
     
     <?=
         $form->field($model, 'id_speciality')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(Speciality::find()->all(),'speciality_id','speciality_name'),
+            'data' => ArrayHelper::map(Speciality::find()->orderBy('speciality_name ASC')->all(),'speciality_id','speciality_name'),
             'language' => 'uk',
             'pluginOptions' => [
                 'allowClear' => true

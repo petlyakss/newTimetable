@@ -4,7 +4,7 @@ namespace app\module\handbook\controllers;
 
 use Yii;
 use app\module\handbook\models\Discipline;
-use app\module\handbook\models\DisciplineSearch;
+use app\module\handbook\controllers\DisciplineSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -62,20 +62,20 @@ class DisciplineController extends Controller
     public function actionCreate()
     {
         $model = new Discipline();
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
-            foreach($model->groups as $group){                
+            foreach($model->mgroups as $group){
+                
                 $dg = new DisciplineGroups;
                 $dg->id_discipline = $model->discipline_distribution_id;
                 $dg->id_group = $group;                
                 $dg->insert();
             }
             
-            return $this->redirect(['view', 'id' => $model->discipline_distribution_id]);
+            //return $this->redirect(['view', 'id' => $model->discipline_distribution_id]);
+            return $this->redirect(['index']);
         } else {
-            
-            
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -93,9 +93,28 @@ class DisciplineController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            DisciplineGroups::deleteAll('id_discipline = '.$id);
+            
+            foreach($model->mgroups as $group){
+                
+                $dg = new DisciplineGroups;
+                $dg->id_discipline = $model->discipline_distribution_id;
+                $dg->id_group = $group;                
+                $dg->insert();
+            }
+            
             return $this->redirect(['view', 'id' => $model->discipline_distribution_id]);
         } else {
-            return $this->render('update', [
+            
+            $opt = DisciplineGroups::findAll(['id_discipline'=>$_GET['id']]);
+              
+            foreach ($opt as $key){
+                $optArr[] = $key['id_group'];
+            }
+            
+            $model->mgroups = $optArr;
+                return $this->render('update', [
                 'model' => $model,
             ]);
         }
@@ -109,6 +128,8 @@ class DisciplineController extends Controller
      */
     public function actionDelete($id)
     {
+        DisciplineGroups::deleteAll('id_discipline = '.$id);
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

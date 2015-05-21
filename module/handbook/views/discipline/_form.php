@@ -71,14 +71,15 @@ foreach($all_faculty as $af){
         ])->label('Тип заняття');
     ?>
     
-    <?=
-        $form->field($model, 'id_group')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(Groups::find()->all(), 'group_id','main_group_name'),
-            'language' => 'uk',
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ])->label('Група');
+    <?php
+        echo Html::label("Групи");
+        echo Select2::widget([
+            'model' => $model,
+            'attribute' => 'groups',
+            'language' => 'ru',
+            'data' => ArrayHelper::map(Groups::find()->all(),'group_id','main_group_name'),
+            'options' => ['multiple' => true]
+        ]);  
     ?>    
     
     <?=

@@ -29,7 +29,10 @@ use kartik\select2\Select2;
             ],
         ]);
     ?>
-    <?= $form->field($model, 'id_faculty')->dropDownList(ArrayHelper::map(Faculty::find()->all(), 'faculty_id', 'faculty_name')) ?>
+   
+    <?php $faculty = ArrayHelper::map(Faculty::find()->all(), 'faculty_id', 'faculty_name'); ?>
+    <?= 
+        $form->field($model, 'id_faculty')->dropDownList(ArrayHelper::multisort($faculty, 'faculty_name', [ArrayHelper::SORT_ASC]))?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Додати' : 'Оновити', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

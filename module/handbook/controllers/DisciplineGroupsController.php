@@ -3,17 +3,16 @@
 namespace app\module\handbook\controllers;
 
 use Yii;
-use app\module\handbook\models\Discipline;
-use app\module\handbook\models\DisciplineSearch;
+use app\module\handbook\models\DisciplineGroups;
+use app\module\handbook\controllers\DisciplineGroupsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\module\handbook\models\DisciplineGroups;
 
 /**
- * DisciplineController implements the CRUD actions for Discipline model.
+ * DisciplineGroupsController implements the CRUD actions for DisciplineGroups model.
  */
-class DisciplineController extends Controller
+class DisciplineGroupsController extends Controller
 {
     public function behaviors()
     {
@@ -28,12 +27,12 @@ class DisciplineController extends Controller
     }
 
     /**
-     * Lists all Discipline models.
+     * Lists all DisciplineGroups models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DisciplineSearch();
+        $searchModel = new DisciplineGroupsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -43,7 +42,7 @@ class DisciplineController extends Controller
     }
 
     /**
-     * Displays a single Discipline model.
+     * Displays a single DisciplineGroups model.
      * @param integer $id
      * @return mixed
      */
@@ -55,27 +54,17 @@ class DisciplineController extends Controller
     }
 
     /**
-     * Creates a new Discipline model.
+     * Creates a new DisciplineGroups model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Discipline();
-        
+        $model = new DisciplineGroups();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
-            foreach($model->groups as $group){                
-                $dg = new DisciplineGroups;
-                $dg->id_discipline = $model->discipline_distribution_id;
-                $dg->id_group = $group;                
-                $dg->insert();
-            }
-            
-            return $this->redirect(['view', 'id' => $model->discipline_distribution_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            
-            
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -83,7 +72,7 @@ class DisciplineController extends Controller
     }
 
     /**
-     * Updates an existing Discipline model.
+     * Updates an existing DisciplineGroups model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -93,7 +82,7 @@ class DisciplineController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->discipline_distribution_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -102,7 +91,7 @@ class DisciplineController extends Controller
     }
 
     /**
-     * Deletes an existing Discipline model.
+     * Deletes an existing DisciplineGroups model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -115,15 +104,15 @@ class DisciplineController extends Controller
     }
 
     /**
-     * Finds the Discipline model based on its primary key value.
+     * Finds the DisciplineGroups model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Discipline the loaded model
+     * @return DisciplineGroups the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Discipline::findOne($id)) !== null) {
+        if (($model = DisciplineGroups::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

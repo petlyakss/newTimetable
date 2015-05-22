@@ -31,7 +31,7 @@ class DisciplinelistController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
+    {        
         $searchModel = new DisciplineListSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

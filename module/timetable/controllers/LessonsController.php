@@ -66,33 +66,46 @@ class LessonsController extends Controller
     public function actionCreate()
     {
         $model = new Lessons();
+        $m = new Lessons;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if($model->num_dem == 1){
-                if($model->is_numerator == 1){
-                    $m = new Lessons;
-                    $m = $model;
+            if($model->num_dem == 1){//Записываем если выбрана галочка Числитель/Знаменатель для 1 группы
+                if($model->is_numerator == 1){                    
+                    $m->is_holiday = $model->is_holiday;
+                    $m->all_group = $model->all_group;
+                    $m->id_discipline = $model->id_discipline;
+                    $m->id_teacher = $model->id_teacher;
+                    $m->id_classroom = $model->id_classroom;
+                    $m->id_group = $model->id_group;
+                    $m->id_faculty = $model->id_faculty;
+                    $m->id_speciality = $model->id_speciality;
+                    $m->course = $model->course;
+                    $m->semester = $model->semester;
+                    $m->id_okr = $model->id_okr;
                     $m->is_numerator = 0;
-                    $m->save();
-                    unset($m);
-                    /*$model->is_numerator = 0;
-                    $model->save();
-                    $model->insert();*/
-                }else{
-                    $m = new Lessons;
-                    $m = $model;
-                    $m->is_numerator = 1;
+                    $m->day = $model->day;
+                    $m->lesson_number = $model->lesson_number;
+                    $m->lesson_id = ++$model->lesson_id;
                     $m->insert();
-                    unset($m);
+                }else{
+                    $m->is_holiday = $model->is_holiday;
+                    $m->all_group = $model->all_group;
+                    $m->id_discipline = $model->id_discipline;
+                    $m->id_teacher = $model->id_teacher;
+                    $m->id_classroom = $model->id_classroom;
+                    $m->id_group = $model->id_group;
+                    $m->id_faculty = $model->id_faculty;
+                    $m->id_speciality = $model->id_speciality;
+                    $m->course = $model->course;
+                    $m->semester = $model->semester;
+                    $m->id_okr = $model->id_okr;
+                    $m->is_numerator = 1;
+                    $m->day = $model->day;
+                    $m->lesson_number = $model->lesson_number;
+                    $m->lesson_id = ++$model->lesson_id;
+                    $m->insert();                            
                 }
-            }   
-            /*if($model->is_holiday == 1){
-                $model->lesson_id = 0;
-                $model->id_discipline = 0;
-                $model->id_teacher = 0;
-                $model->id_classroom = 0;
-                $model->is_holiday = 1;
-        }*/
+            }              
             
             
             

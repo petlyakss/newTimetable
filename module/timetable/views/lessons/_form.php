@@ -12,6 +12,7 @@ use app\module\handbook\models\Teachers;
 use app\module\handbook\models\ClassRooms;
 use app\module\handbook\models\Housing;
 use app\module\handbook\models\Groups;
+use app\module\handbook\models\DisciplineGroups;
 
 /* @var $this yii\web\View */
 /* @var $model app\module\timetable\models\Lessons */
@@ -37,12 +38,17 @@ $classes = ClassRooms::find()->Where('seats>'.$sig)->all();
     }
 
 
-$disciplines = Discipline::find()->all();
-foreach ($disciplines as $disc){
-    $disc_name = DisciplineList::findOne(['discipline_id' => $disc['id_discipline']]);
-    $disc_type = LessonsType::findOne(['id' => $disc['id_lessons_type']]);
-    $discipline_array[$disc['discipline_distribution_id']] = $disc_name['discipline_name']." - ".$disc_type['lesson_type_name'];
+    $d = DisciplineGroups::findAll(['id_group' => $id_group]);
+    
+foreach ($d as $dd){
+    $disciplines = Discipline::findAll(['discipline_distribution_id' => $dd['id_discipline']]);
+   foreach ($disciplines as $disc){    
+        $disc_name = DisciplineList::findOne(['discipline_id' => $disc['id_discipline']]);
+        $disc_type = LessonsType::findOne(['id' => $disc['id_lessons_type']]);
+        $discipline_array[$disc['discipline_distribution_id']] = $disc_name['discipline_name']." - ".$disc_type['lesson_type_name'];
+    }    
 }
+
 ?>
 
 <div class="lessons-form">

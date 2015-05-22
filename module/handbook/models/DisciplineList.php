@@ -1,6 +1,7 @@
 <?php
 
 namespace app\module\handbook\models;
+use app\module\handbook\models\DisciplineList;
 
 use Yii;
 
@@ -29,6 +30,7 @@ class DisciplineList extends \yii\db\ActiveRecord
     {
         return [
             [['discipline_name'], 'required'],
+            ['discipline_name', 'unique'],
             [['discipline_name'], 'string', 'max' => 100]
         ];
     }
@@ -43,7 +45,14 @@ class DisciplineList extends \yii\db\ActiveRecord
             'discipline_name' => 'Дисципліна',
         ];
     }
-
+    
+    public function validate_dname($attribute)
+    {
+        $d = DisciplineList::find()->where(['discipline_name' => $attribute]);
+        if(empty($d)){
+            $this->addError($attribute, 'Така дисципліна вже присутня');
+        }
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

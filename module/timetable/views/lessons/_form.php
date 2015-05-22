@@ -31,22 +31,33 @@ $id_okr = $_GET['id_okr'];
 
 $students_in_group = Groups::find()->where(['group_id' => $id_group ])->all();
 $sig = $students_in_group[0]['number_of_students']+5;
-$classes = ClassRooms::find()->Where('seats>'.$sig)->all();
+$classes = ClassRooms::find()->Where('seats>'.$sig)->orderBy('classrooms_number ASC')->all();
     foreach ($classes as $cl){ 
         $housing = Housing::findOne(['housing_id' => $cl['id_housing']]);
         $classroomsArray[$cl['classrooms_id']] = $cl['classrooms_number'].' - '.$housing['name'];
     }
 
 
-    $d = DisciplineGroups::findAll(['id_group' => $id_group]);
+    $d = DisciplineGroups::findAll(['id_group' => $id_group]);    
+    
+    if(empty($d)){
+        $d = DisciplineGroups::findAll(['id_group' => $students_in_group[0]['parent_group']]);
+    }
     
 foreach ($d as $dd){
+    //$disciplines = Discipline::findAll(['discipline_distribution_id' => $dd['id_discipline']]);
     $disciplines = Discipline::findAll(['discipline_distribution_id' => $dd['id_discipline']]);
    foreach ($disciplines as $disc){    
         $disc_name = DisciplineList::findOne(['discipline_id' => $disc['id_discipline']]);
         $disc_type = LessonsType::findOne(['id' => $disc['id_lessons_type']]);
-        $discipline_array[$disc['discipline_distribution_id']] = $disc_name['discipline_name']." - ".$disc_type['lesson_type_name'];
+        $da[$disc['discipline_distribution_id']] = $disc_name['discipline_name']." - ".$disc_type['lesson_type_name'];
     }    
+}
+
+asort($da);
+
+foreach($da as $x=>$x_value){
+    $discipline_array[$x] = $x_value;
 }
 
 ?>
@@ -106,7 +117,11 @@ foreach ($d as $dd){
     ?> 
     
     <?= $form->field($model, 'id_group')->hiddenInput(['value' => $id_group])->label(false) ?>
+    
+    <?= $form->field($model, 'subgroup')->hiddenInput(['value' => $students_in_group[0]['is_subgroup']])->label(false) ?>
 
+    <?= $form->field($model, 'parent')->hiddenInput(['value' => $students_in_group[0]['parent_group']])->label(false) ?>
+    
     <?= $form->field($model, 'id_faculty')->hiddenInput(['value' => $id_faculty])->label(false) ?>
 
     <?= $form->field($model, 'id_speciality')->hiddenInput(['value' => $id_speciality])->label(false) ?>

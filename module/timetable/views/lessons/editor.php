@@ -31,15 +31,16 @@ $week = ["","Понеділок","Вівторок","Середа","Четвер
 $groups_list = Groups::findAll(["id_speciality" => $speciality, "inflow_year" => $inflow_year, "group_id" => $group_id]);
 $less_time = LessonTime::find()->all();
 
+$gl = Groups::findAll(["parent_group" => $group_id]);
 
-
-if(count($groups_list) > 1){//Определяем есть ли у группы подгруппы
+if(count($gl) > 0){//Определяем есть ли у группы подгруппы
     $group_has_subgroup = true;
+    $groups_list = $gl;
 }else{
     $group_has_subgroup = false;
 }
 
-
+var_dump($group_has_subgroup);
 
 $this->title = 'Редагувати розклад:';
 $this->params['breadcrumbs'][] = ['label' => 'Редактор розкладу', 'url' => ['index']];
@@ -206,8 +207,9 @@ function day_print($day, $lesson_number, $id_group, $is_numerator, $id_okr){
         <td class="day_name_title">
                 Пара
         </td>
+        
         <?php
-        foreach($groups_list as $gr){ //Перебираем все подгруппы                    
+        foreach($groups_list as $gr) { //Перебираем все подгруппы                    
         if($group_has_subgroup){ //Проверяем есть ли подгруппы
             if($gr['is_subgroup'] == 0){
                 continue;

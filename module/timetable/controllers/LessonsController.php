@@ -67,8 +67,39 @@ class LessonsController extends Controller
     {
         $model = new Lessons();
         $m = new Lessons;
-
+        
+        
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            if($model->all_group == 1){
+                $groups_arr = Groups::findAll(['parent_group' => $model->parent]);
+                
+                foreach($groups_arr as $ga){
+                    if($ga['group_id'] == $model->id_group){
+                        continue;
+                    }else{
+                        $m = new Lessons;
+                        $m->is_holiday = $model->is_holiday;
+                        $m->all_group = $model->all_group;
+                        $m->id_discipline = $model->id_discipline;
+                        $m->id_teacher = $model->id_teacher;
+                        $m->id_classroom = $model->id_classroom;
+                        $m->id_group = $model->$ga['group_id'];
+                        $m->id_faculty = $model->id_faculty;
+                        $m->id_speciality = $model->id_speciality;
+                        $m->course = $model->course;
+                        $m->semester = $model->semester;
+                        $m->id_okr = $model->id_okr;
+                        $m->is_numerator = $model->is_numerator;
+                        $m->day = $model->day;
+                        $m->lesson_number = $model->lesson_number;
+                        $m->lesson_id = ++$model->lesson_id;
+                        $m->insert();
+                        
+                    }
+                } 
+            }
             if($model->num_dem == 1){//Записываем если выбрана галочка Числитель/Знаменатель для 1 группы
                 if($model->is_numerator == 1){                    
                     $m->is_holiday = $model->is_holiday;
@@ -107,7 +138,10 @@ class LessonsController extends Controller
                 }
             }              
             
-            
+            /*if($model->all_group == 1){
+                $groups_arr = Groups::findAll(['main_group_name' => $model->id_group]);
+                var_dump($groups_arr);
+            }*/
             
            /*if($model->all_speciality == 1){ 
                $groups_arr = Groups::findAll(['id_speciality' => $model->id_speciality]);
@@ -139,7 +173,13 @@ class LessonsController extends Controller
            }else{
                
            } */
-            $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'&group_id='.$model->id_group.'#lesson_id'.$model->lesson_id);    
+            
+            if($model->subgroup == 1){
+                $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'&group_id='.$model->parent.'#lesson_id'.$model->lesson_id);    
+            }else{
+                $url = Url::to('index.php?r=timetable/lessons/editor&id'.$model->lesson_id.'&semestr='.$model->semester.'&course_get='.$model->course.'&faculty_id='.$model->id_faculty.'&speciality_id='.$model->id_speciality.'&group_id='.$model->id_group.'#lesson_id'.$model->lesson_id);    
+            
+            }
             return $this->redirect($url);
         } else {
             return $this->renderAjax('create', [

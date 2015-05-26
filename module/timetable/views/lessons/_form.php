@@ -76,8 +76,8 @@ foreach($da as $x=>$x_value){
         <?= $form->field($model, 'num_dem')->checkbox() ?>
     </div>
         <div class="col-md-3 editor_checkbox">
-            
-            <?= $form->field($model, 'all_group')->checkbox() ?>
+            <?= $form->field($model, 'all_group')->hiddenInput(['value' => 0])->label(false) ?>
+            <?php// $form->field($model, 'all_group')->checkbox() ?>
         </div>
         <!--<div class="col-md-3 editor_checkbox">
            

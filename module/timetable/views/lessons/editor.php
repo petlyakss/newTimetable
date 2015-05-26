@@ -40,8 +40,6 @@ if(count($gl) > 0){//Определяем есть ли у группы подг
     $group_has_subgroup = false;
 }
 
-var_dump($group_has_subgroup);
-
 $this->title = 'Редагувати розклад:';
 $this->params['breadcrumbs'][] = ['label' => 'Редактор розкладу', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $semestr.' семестр';

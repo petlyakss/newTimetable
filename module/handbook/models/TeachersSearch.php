@@ -49,6 +49,27 @@ class TeachersSearch extends Teachers
 
         $this->load($params);
 
+        $dataProvider->setSort([
+            'attributes' => [
+                'id_cathedra' => [
+                    'asc' => ['cathedra.cathedra_name' => SORT_ASC],
+                    'desc' => ['cathedra.cathedra_name' => SORT_DESC]
+                ],
+                'teacher_name' => [
+                    'asc' => ['teacher_name' => SORT_ASC],
+                    'desc' => ['teacher_name' => SORT_DESC]
+                ],
+                'id_position' => [
+                    'asc' => ['position_name' => SORT_ASC],
+                    'desc' => ['position_name' => SORT_DESC]
+                ],
+                'id_academic_status' => [
+                    'asc' => ['academic_status_name' => SORT_ASC],
+                    'desc' => ['academic_status_name' => SORT_DESC]
+                ]
+            ]
+        ]);
+        
         if (!$this->validate()) {
             // uncomment the following line if you do not want to any records when validation fails
             // $query->where('0=1');

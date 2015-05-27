@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'id_cathedra',
                 'value' => 'cathedra.cathedra_name',
             ],            
-            [
+            /*[
               'header' => 'Додаткові кафедри',              
               'format' => 'raw',
               'value' => function($data){
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $result .= "</ul>";
                 return $result;
               }
-            ],
+            ],*/
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

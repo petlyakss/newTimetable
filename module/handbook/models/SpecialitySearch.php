@@ -18,8 +18,8 @@ class SpecialitySearch extends Speciality
     public function rules()
     {
         return [
-            [['speciality_id', 'id_edebo', 'id_cathedra'], 'integer'],
-            [['speciality_name', 'id_faculty'], 'safe'],
+            [['speciality_id', 'id_edebo'], 'integer'],
+            [['speciality_name', 'id_faculty', 'id_cathedra'], 'safe'],
         ];
     }
 
@@ -46,7 +46,27 @@ class SpecialitySearch extends Speciality
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+        $query->joinWith('faculty');
+        $query->joinWith('cathedra');
 
+        $dataProvider->setSort([
+            'attributes' => [
+                'speciality_name' => [
+                    'asc' => ['speciality_name' => SORT_ASC],
+                    'desc' => ['speciality_name' => SORT_DESC]
+                ],
+                'id_cathedra' => [
+                    'asc' => ['cathedra.cathedra_name' => SORT_ASC],
+                    'desc' => ['cathedra.cathedra_name' => SORT_DESC]
+                ],
+                'id_faculty' => [
+                    'asc' => ['faculty.faculty_name' => SORT_ASC],
+                    'desc' => ['faculty.faculty_name' => SORT_DESC]
+                ]
+            ]
+        ]);
+        
         $this->load($params);
 
         if (!$this->validate()) {
@@ -55,16 +75,16 @@ class SpecialitySearch extends Speciality
             return $dataProvider;
         }
         
-        $query->joinWith('faculty');
+
 
         $query->andFilterWhere([
             'speciality_id' => $this->speciality_id,
-            'id_edebo' => $this->id_edebo,
-            'id_cathedra' => $this->id_cathedra
+            'id_edebo' => $this->id_edebo                
         ]);
 
         $query->andFilterWhere(['like', 'speciality_name', $this->speciality_name])
-                 ->andFilterWhere(['like', 'faculty.faculty_name', $this->id_faculty]);
+                 ->andFilterWhere(['like', 'faculty.faculty_name', $this->id_faculty])
+                ->andFilterWhere(['like', 'cathedra.cathedra_name', $this->id_cathedra]);
 
         return $dataProvider;
     }

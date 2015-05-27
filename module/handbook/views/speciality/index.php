@@ -26,9 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'speciality_id',
-            'speciality_name',
-            //'id_edebo',
-            'cathedra.cathedra_name',
+            [
+                'attribute' => 'speciality_name',
+                'value' => 'speciality_name'
+            ],
+            //'id_edebo',            
+            [
+                'attribute' => 'id_cathedra',
+                'value' => 'cathedra.cathedra_name'
+            ],
             [
                 'attribute' => 'id_faculty',
                 'value' => 'faculty.faculty_name',

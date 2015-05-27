@@ -32,10 +32,10 @@ class Speciality extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['speciality_name', 'id_edebo', 'id_cathedra', 'id_faculty'], 'required'],
+            [['speciality_name', 'id_edebo', 'id_faculty'], 'required'],
             [['id_edebo', 'id_cathedra'], 'integer'],
             [['speciality_name'], 'string', 'max' => 100],
-            [['id_faculty'], 'safe']
+            [[ 'id_cathedra','id_faculty'], 'safe']
         ];
     }
 

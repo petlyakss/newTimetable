@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\module\handbook\models\DisciplineGroups;
+use yii\helpers\ArrayHelper;
+use app\module\handbook\models\Groups;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\module\handbook\controllers\DisciplineSearch */
@@ -37,7 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
               'attribute' => 'id_cathedra',
               'value' => 'cathedra.cathedra_name'
             ],
-            'lessonsType.lesson_type_name',
+            [
+              'attribute' => 'id_lessons_type',
+              'value' => 'lessonsType.lesson_type_name'
+            ],
             [
               'header' => 'Групи',
               'format' => 'raw',

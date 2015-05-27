@@ -44,8 +44,8 @@ class Discipline extends \yii\db\ActiveRecord
     {
         return [
             [['id_edbo', 'id_deanery', 'id_cathedra', 'id_lessons_type', 'course', 'hours', 'semestr_hours'], 'required'],
-            [['id_edbo', 'id_deanery',  'id_lessons_type', 'id_group', 'course', 'hours', 'semestr_hours', 'id_classroom'], 'integer'],
-            [['id_discipline','mgroups', 'id_cathedra','id_classroom'],'safe']
+            [['id_edbo', 'id_deanery', 'id_group', 'course', 'hours', 'semestr_hours', 'id_classroom'], 'integer'],
+            [['id_discipline','mgroups', 'id_cathedra',  'id_lessons_type', 'id_classroom'],'safe']
         ];
     }
 
@@ -56,11 +56,11 @@ class Discipline extends \yii\db\ActiveRecord
     {
         return [
             'discipline_distribution_id' => 'ID дисципліни',
-            'id_discipline' => 'Id Discipline',
+            'id_discipline' => 'Дисципліна',
             'id_edbo' => 'ID ЄДЕБО',
             'id_deanery' => 'ID деканат',
-            'id_cathedra' => 'ID Cathedra',
-            'id_lessons_type' => 'Id Lessons Type',
+            'id_cathedra' => 'Кафедра',
+            'id_lessons_type' => 'Тип заняття',
             'id_group' => 'Id Group',
             'course' => 'Курс',
             'hours' => 'Годин за 2 тижні',

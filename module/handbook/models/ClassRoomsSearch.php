@@ -21,8 +21,8 @@ class ClassRoomsSearch extends ClassRooms
     public function rules()
     {
         return [
-            [['classrooms_id', 'id_housing', 'seats', 'comp_number', 'is_public'], 'integer'],
-            [['classrooms_number', 'options','class_type_name', 'housing_name'], 'safe'],
+            [['classrooms_id',  'seats', 'comp_number', 'is_public'], 'integer'],
+            [['classrooms_number', 'options','class_type_name','id_housing', 'housing_name'], 'safe'],
         ];
     }
 
@@ -60,17 +60,18 @@ class ClassRoomsSearch extends ClassRooms
         }
         
         $query = ClassRooms::find()->joinWith('housing');
-        
+        $query->joinWith('housing');
+  
         $query->andFilterWhere([
             'classrooms_id' => $this->classrooms_id,
-            'id_housing' => $this->id_housing,
             'seats' => $this->seats,
             'comp_number' => $this->comp_number,
         ]);
 
         $query->andFilterWhere(['like', 'classrooms_number', $this->classrooms_number])
             ->andFilterWhere(['like', 'options', $this->options])
-            ->andFilterWhere(['like', 'spec_classes.spec_class_name', $this->class_type_name]);
+            ->andFilterWhere(['like', 'spec_class_name', $this->class_type_name])
+            ->andFilterWhere(['like', 'name', $this->id_housing]);
         
         $query->andFilterWhere(['like', 'housing.name', $this->housing_name]);
 

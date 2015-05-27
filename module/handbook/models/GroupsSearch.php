@@ -55,6 +55,7 @@ class GroupsSearch extends Groups
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
 
         $this->load($params);
 

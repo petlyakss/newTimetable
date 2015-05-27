@@ -18,8 +18,8 @@ class SpecialitySearch extends Speciality
     public function rules()
     {
         return [
-            [['speciality_id', 'id_edebo', 'id_cathedra', 'id_faculty'], 'integer'],
-            [['speciality_name'], 'safe'],
+            [['speciality_id', 'id_edebo', 'id_cathedra'], 'integer'],
+            [['speciality_name', 'id_faculty'], 'safe'],
         ];
     }
 
@@ -54,15 +54,17 @@ class SpecialitySearch extends Speciality
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        $query->joinWith('faculty');
 
         $query->andFilterWhere([
             'speciality_id' => $this->speciality_id,
             'id_edebo' => $this->id_edebo,
-            'id_cathedra' => $this->id_cathedra,
-            'id_faculty' => $this->id_faculty,
+            'id_cathedra' => $this->id_cathedra
         ]);
 
-        $query->andFilterWhere(['like', 'speciality_name', $this->speciality_name]);
+        $query->andFilterWhere(['like', 'speciality_name', $this->speciality_name])
+                 ->andFilterWhere(['like', 'faculty.faculty_name', $this->id_faculty]);
 
         return $dataProvider;
     }

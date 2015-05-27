@@ -57,8 +57,12 @@ $this->params['breadcrumbs'][] = $this->title;
               }
             ],
             'inflow_year',
+            
             'number_of_students',
-            'okr.okr_name',
+            [
+                'attribute' => 'id_okr',
+                'value' => 'okr.okr_name'
+            ],
             // 'parent_group',
             [
               'header' => 'Підгрупи',

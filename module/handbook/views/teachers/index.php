@@ -26,10 +26,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'teacher_id',
-            'teacher_name',
-            'position.position_name',
-            'academicStatus.academic_status_name',
-            'cathedra.cathedra_name',
+            'teacher_name',            
+            [
+                'attribute' => 'id_position',
+                'value' => 'position.position_name'
+            ],
+            [
+                'attribute' => 'id_academic_status',
+                'value' => 'academicStatus.academic_status_name'
+            ],    
+            [
+                'attribute' => 'id_cathedra',
+                'value' => 'cathedra.cathedra_name',
+            ],            
             [
               'header' => 'Додаткові кафедри',              
               'format' => 'raw',

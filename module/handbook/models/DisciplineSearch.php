@@ -18,7 +18,8 @@ class DisciplineSearch extends Discipline
     public function rules()
     {
         return [
-            [['discipline_distribution_id', 'id_discipline', 'id_edbo', 'id_deanery', 'id_cathedra', 'id_lessons_type', 'id_group', 'course', 'hours', 'semestr_hours', 'id_classroom'], 'integer'],
+            [['discipline_distribution_id', 'id_edbo', 'id_deanery',  'id_lessons_type', 'id_group', 'course', 'hours', 'semestr_hours', 'id_classroom'], 'integer'],
+            [['id_cathedra', 'id_discipline'], 'safe']
         ];
     }
 
@@ -54,12 +55,13 @@ class DisciplineSearch extends Discipline
             return $dataProvider;
         }
 
+        $query->joinWith('disciplineList');
+        $query->joinWith('cathedra');
+        
         $query->andFilterWhere([
             'discipline_distribution_id' => $this->discipline_distribution_id,
-            'id_discipline' => $this->id_discipline,
             'id_edbo' => $this->id_edbo,
             'id_deanery' => $this->id_deanery,
-            'id_cathedra' => $this->id_cathedra,
             'id_lessons_type' => $this->id_lessons_type,
             'id_group' => $this->id_group,
             'course' => $this->course,
@@ -68,6 +70,9 @@ class DisciplineSearch extends Discipline
             'id_classroom' => $this->id_classroom,
         ]);
 
+        $query->andFilterWhere(['like', 'disciplineName.discipline_name', $this->id_discipline])
+                ->andFilterWhere(['like', 'cathedra.cathedra_name', $this->id_cathedra]);
+        
         return $dataProvider;
     }
 }

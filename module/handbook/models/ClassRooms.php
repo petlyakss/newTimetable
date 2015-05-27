@@ -36,9 +36,10 @@ class ClassRooms extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['classrooms_number', 'id_housing', 'seats', 'comp_number', 'is_public','options'], 'required'],
+            [['classrooms_number', 'seats', 'comp_number', 'is_public','options'], 'required'],
             [['id_housing', 'seats', 'comp_number', 'is_public'], 'integer'],
-            [['classrooms_number'], 'string', 'max' => 4]
+            [['classrooms_number'], 'string', 'max' => 4],
+            [['id_housing'], 'safe']
         ];
     }
 

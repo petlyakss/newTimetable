@@ -43,9 +43,9 @@ class Discipline extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_discipline', 'id_edbo', 'id_deanery', 'id_cathedra', 'id_lessons_type', 'course', 'hours', 'semestr_hours'], 'required'],
-            [['id_discipline', 'id_edbo', 'id_deanery', 'id_cathedra', 'id_lessons_type', 'id_group', 'course', 'hours', 'semestr_hours', 'id_classroom'], 'integer'],
-            [['mgroups', 'id_classroom'],'safe']
+            [['id_edbo', 'id_deanery', 'id_cathedra', 'id_lessons_type', 'course', 'hours', 'semestr_hours'], 'required'],
+            [['id_edbo', 'id_deanery',  'id_lessons_type', 'id_group', 'course', 'hours', 'semestr_hours', 'id_classroom'], 'integer'],
+            [['id_discipline','mgroups', 'id_cathedra','id_classroom'],'safe']
         ];
     }
 

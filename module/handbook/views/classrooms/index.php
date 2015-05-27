@@ -30,8 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'classrooms_id',
-            'classrooms_number',
-            'housing.name',
+            'classrooms_number',            
+            [
+              'attribute' => 'id_housing',
+              'value' => 'housing.name'
+            ],
             [
               'header' => 'Тип аудиторії',
               'filter' => '<input type="text" class="form-control" '

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\module\handbook\models\CathedraSearch */
@@ -29,8 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'cathedra_name',
             //'id_edbo',
             //'id_deanery',
-            'faculty.faculty_name',
-
+            [
+                'attribute' => 'id_faculty',
+                'value' => 'faculty.faculty_name',
+                //'filter' => ArrayHelper::map(\app\module\handbook\models\Faculty::find()->all(),  'faculty_name', 'faculty_id'),
+                //'enableSorting' => false,
+                'format' => 'text'
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

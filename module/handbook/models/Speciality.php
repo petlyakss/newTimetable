@@ -33,8 +33,9 @@ class Speciality extends \yii\db\ActiveRecord
     {
         return [
             [['speciality_name', 'id_edebo', 'id_cathedra', 'id_faculty'], 'required'],
-            [['id_edebo', 'id_cathedra', 'id_faculty'], 'integer'],
-            [['speciality_name'], 'string', 'max' => 100]
+            [['id_edebo', 'id_cathedra'], 'integer'],
+            [['speciality_name'], 'string', 'max' => 100],
+            [['id_faculty'], 'safe']
         ];
     }
 

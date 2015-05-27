@@ -36,9 +36,8 @@ class Teachers extends \yii\db\ActiveRecord
     {
         return [
             [['teacher_name', 'id_position', 'id_academic_status', 'id_cathedra'], 'required'],
-            [['id_position', 'id_academic_status', 'id_cathedra'], 'integer'],
             [['teacher_name'], 'string', 'max' => 150],
-            [['teacher_other_cathedra'], 'safe']
+            [['id_academic_status','id_position','teacher_other_cathedra', 'id_cathedra'], 'safe']
         ];
     }
 

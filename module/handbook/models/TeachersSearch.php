@@ -18,8 +18,8 @@ class TeachersSearch extends Teachers
     public function rules()
     {
         return [
-            [['teacher_id', 'id_position', 'id_academic_status', 'id_cathedra'], 'integer'],
-            [['teacher_name'], 'safe'],
+            [['teacher_id'], 'integer'],
+            [['id_academic_status', 'id_position','teacher_name', 'id_cathedra'], 'safe'],
         ];
     }
 
@@ -54,15 +54,19 @@ class TeachersSearch extends Teachers
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        $query->joinWith('position');
+        $query->joinWith('academicStatus');
+        $query->joinWith('cathedra');
 
         $query->andFilterWhere([
-            'teacher_id' => $this->teacher_id,
-            'id_position' => $this->id_position,
-            'id_academic_status' => $this->id_academic_status,
-            'id_cathedra' => $this->id_cathedra,
+            'teacher_id' => $this->teacher_id
         ]);
 
-        $query->andFilterWhere(['like', 'teacher_name', $this->teacher_name]);
+        $query->andFilterWhere(['like', 'teacher_name', $this->teacher_name])
+              ->andFilterWhere(['like', 'position_name', $this->id_position])
+              ->andFilterWhere(['like', 'academic_status_name', $this->id_academic_status])
+              ->andFilterWhere(['like', 'cathedra_name', $this->id_cathedra]);
 
         return $dataProvider;
     }

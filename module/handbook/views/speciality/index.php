@@ -29,7 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'speciality_name',
             //'id_edebo',
             'cathedra.cathedra_name',
-            'faculty.faculty_name',
+            [
+                'attribute' => 'id_faculty',
+                'value' => 'faculty.faculty_name',
+                //'filter' => ArrayHelper::map(\app\module\handbook\models\Faculty::find()->all(),  'faculty_name', 'faculty_id'),
+                
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

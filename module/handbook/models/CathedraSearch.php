@@ -18,8 +18,8 @@ class CathedraSearch extends Cathedra
     public function rules()
     {
         return [
-            [['cathedra_id', 'id_edbo', 'id_deanery', 'id_faculty'], 'integer'],
-            [['cathedra_name'], 'safe'],
+            [['cathedra_id', 'id_edbo'], 'integer'],
+            [['cathedra_name','id_faculty', 'id_deanery'], 'safe'],
         ];
     }
 
@@ -44,9 +44,10 @@ class CathedraSearch extends Cathedra
         $query = Cathedra::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query
         ]);
 
+        
         $this->load($params);
 
         if (!$this->validate()) {
@@ -55,14 +56,32 @@ class CathedraSearch extends Cathedra
             return $dataProvider;
         }
 
+        $query->joinWith('faculty');
+        
+        $dataProvider->setSort([
+            'attributes' => [        
+                'cathedra_name' => [
+                    'asc' => ['cathedra_name' => SORT_ASC],
+                    'desc' => ['cathedra_name' => SORT_DESC],
+                    'label' => 'Факультет/спеціальність'
+                ],
+                'id_faculty' => [
+                    'asc' => ['faculty.faculty_name' => SORT_ASC],
+                    'desc' => ['faculty.faculty_name' => SORT_DESC],
+                    'label' => 'Факультет/спеціальність'
+                ]                
+            ]
+        ]);
+        
+        
         $query->andFilterWhere([
             'cathedra_id' => $this->cathedra_id,
             'id_edbo' => $this->id_edbo,
             'id_deanery' => $this->id_deanery,
-            'id_faculty' => $this->id_faculty,
         ]);
 
-        $query->andFilterWhere(['like', 'cathedra_name', $this->cathedra_name]);
+        $query->andFilterWhere(['like', 'cathedra_name', $this->cathedra_name])
+              ->andFilterWhere(['like', 'faculty.faculty_name', $this->id_faculty]);
 
         return $dataProvider;
     }

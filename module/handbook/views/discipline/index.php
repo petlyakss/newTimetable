@@ -26,11 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            //'discipline_distribution_id',
-            'disciplineName.discipline_name',
+            //'discipline_distribution_id',            
+            [
+              'attribute' => 'id_discipline',
+              'value' => 'disciplineName.discipline_name'
+            ],
             //'id_edbo',
             //'id_deanery',
-            'cathedra.cathedra_name',
+            [
+              'attribute' => 'id_cathedra',
+              'value' => 'cathedra.cathedra_name'
+            ],
             'lessonsType.lesson_type_name',
             [
               'header' => 'Групи',

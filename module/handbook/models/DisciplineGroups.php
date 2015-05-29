@@ -62,4 +62,11 @@ class DisciplineGroups extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Groups::className(), ['group_id' => 'id_group']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDisciplineName()
+    {
+        return $this->hasOne(DisciplineList::className(), ['discipline_id' => 'id_discipline']);
+    }
 }

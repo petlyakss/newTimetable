@@ -61,7 +61,7 @@ class Discipline extends \yii\db\ActiveRecord
             'id_deanery' => 'ID деканат',
             'id_cathedra' => 'Кафедра',
             'id_lessons_type' => 'Тип заняття',
-            'id_group' => 'Id Group',
+            'id_group' => 'Групи',
             'course' => 'Курс',
             'hours' => 'Годин за 2 тижні',
             'semestr_hours' => 'Годин у семестр',

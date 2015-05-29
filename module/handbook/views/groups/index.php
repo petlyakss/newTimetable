@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use app\module\handbook\models\Okr;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\module\handbook\models\GroupsSearch */
@@ -27,41 +29,57 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'group_id',
-            'main_group_name',
-            //'is_subgroup',
             [
+                'attribute' => 'main_group_name',
+                'value' => 'main_group_name'
+            ],
+            [
+                'attribute' => 'id_speciality',
+                'value' => 'speciality.speciality_name'
+            ],
+            //'is_subgroup',
+            /*[
               'header' => 'факультет/спеціальність',
+              'attribute' => 'id_speciality',
               'filter' => '<input type="text" class="form-control" '
-                .' name="GroupsSearch[spec_full_name]" '
-                .' value="'.$searchModel->spec_full_name.'" />',
-              'format' => 'raw',
-              'value' => function($data){
-                /* @var $data app\module\handbook\models\GroupsSearch */
+                .' name="GroupsSearch[id_speciality]" '
+                .' value="'.$searchModel->id_speciality.'" />',*/
+              //'format' => 'raw',
+              /*'value' => 'id_speciality'function($data){
+                
                 $Faculty = null;
                 $spec_name = "";
                 $faculty_name = "";
                 foreach ($data->getSpeciality()->all() as $Spec){
-                    /* @var $Spec app\module\handbook\models\SpecialitySearch */
+                    
                     $Faculty = $Spec->getFaculty();
                     $spec_name = $Spec->speciality_name;
                 }
                 if ($Faculty){
                     foreach ($Faculty->all() as $F){
-                        /* @var $F app\module\handbook\models\FacultySearch */
+                        
                         $faculty_name = $F->faculty_name;
                     }
                 }
                 $result = $faculty_name
                   . ' / ' . $spec_name;
                 return $result;
-              }
+              }*/
+            //],
+            'inflow_year',  
+            [
+                'attribute' => 'number_of_students',
+                'value' => 'number_of_students',
+                'filter' => '<input type="text" class="form-control" '
+                .' name="GroupsSearch[numb]" '
+                .' value="'.$searchModel->numb.'" />',
             ],
-            'inflow_year',
-            
-            'number_of_students',
             [
                 'attribute' => 'id_okr',
-                'value' => 'okr.okr_name'
+                'value' => 'okr.okr_name',
+                'filter' => '<input type="text" class="form-control" '
+                .' name="GroupsSearch[okr_name]" '
+                .' value="'.$searchModel->okr_name.'" />',
             ],
             // 'parent_group',
             [

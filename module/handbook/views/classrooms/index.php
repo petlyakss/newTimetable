@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
               }
             ],
             'seats',
-            'comp_number',
+            'comp_number',/*
             [
               'header' => 'Інші дисципліни',
               'format' => 'raw',
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return "Так";
                             }
               }
-            ],
+            ],*/
             // 'options',
             // 'is_public',
 

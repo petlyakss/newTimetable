@@ -54,7 +54,7 @@ class ClassRooms extends \yii\db\ActiveRecord
             'id_housing' => 'Корпус',
             'seats' => 'Місць для сидіння',
             'comp_number' => 'Кількість комп\'ютерів',
-            'options' => 'Options',
+            'options' => 'Тип аудиторії',
             'is_public' => 'Інші дисципліни',
         ];
     }
@@ -73,5 +73,12 @@ class ClassRooms extends \yii\db\ActiveRecord
     public function getHousing()
     {
         return $this->hasOne(Housing::className(), ['housing_id' => 'id_housing']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSpecClass()
+    {
+        return $this->hasOne(SpecClasses::className(), ['spec_class_id' => 'spec_class_name']);
     }
 }

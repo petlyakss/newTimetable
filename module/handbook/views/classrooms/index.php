@@ -57,24 +57,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $result;
               }
             ],
-            /*[
-                'attribute' => 'options', 
-                'value' => function($data){
-        
-                $classTypes = $data->getClassTypes()->all();
-                $result = "<ul>";
-                foreach ($classTypes as $classType){
-                    
-                  $specClasses = $classType->getSpecClass()->all();
-                  foreach ($specClasses as $specClass){
-                    
-                    $result .= "<li>".$specClass->spec_class_name.'</li>';
-                  }
-                }
-                $result .= "</ul>";
-                return $result;
-              }
-            ],*/
             'seats',
             'comp_number',/*
             [

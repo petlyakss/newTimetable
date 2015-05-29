@@ -52,17 +52,15 @@ class ClassRoomsSearch extends ClassRooms
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        
-        $this->load($params);
-
         $dataProvider->setSort([
             'attributes' => [                
                 'options' => [
-                    'asc' => ['classTypes.specClass' => SORT_ASC],
-                    'desc' => ['classTypes.specClass' => SORT_DESC]
                 ]
             ]
         ]);
+        $this->load($params);
+
+        
         
         if (!$this->validate()) {
             // uncomment the following line if you do not want to any records when validation fails

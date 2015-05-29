@@ -7,7 +7,7 @@ use yii\helpers\ArrayHelper;
 use app\module\handbook\models\Groups;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\module\handbook\controllers\DisciplineSearch */
+/* @var $searchModel app\module\handbook\models\DisciplineSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Дисципліни';
@@ -44,8 +44,12 @@ $this->params['breadcrumbs'][] = $this->title;
               'value' => 'lessonsType.lesson_type_name'
             ],
             [
-              'header' => 'Групи',
+              'attribute' => 'id_group',
+              //'header' => 'Групи',
               'format' => 'raw',
+              'filter' => '<input type="text" class="form-control" '
+                .' name="DisciplineSearch[groups_name]" '
+                .' value="'.$searchModel->groups_name.'" />',
               'value' => function($data){
                 /* @var $data app\module\handbook\models\ClassRoomsSearch */
                 $discgr = $data->getDisciplineGroups()->all();

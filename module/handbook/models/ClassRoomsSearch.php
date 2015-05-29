@@ -55,7 +55,9 @@ class ClassRoomsSearch extends ClassRooms
         $dataProvider->setSort([
             'attributes' => [                
                 'options' => [
-                ]
+                    'asc' => ['spec_class_name' => SORT_ASC],
+                    'desc' => ['spec_class_name' => SORT_DESC]
+                ],
             ]
         ]);
         $this->load($params);

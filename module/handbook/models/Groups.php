@@ -39,9 +39,9 @@ class Groups extends \yii\db\ActiveRecord
     {
         return [
             [['main_group_name', 'is_subgroup', 'id_speciality', 'inflow_year', 'parent_group', 'number_of_students', 'id_okr', 'id_edebo'], 'required'],
-            [['is_subgroup', 'id_speciality', 'inflow_year', 'parent_group', 'number_of_students', 'id_okr', 'id_edebo'], 'integer'],
+            [['is_subgroup', 'inflow_year', 'parent_group', 'number_of_students', 'id_okr', 'id_edebo'], 'integer'],
             [['main_group_name'], 'string', 'max' => 50],
-            [['tmp_okr'], 'safe']
+            [['id_speciality', 'tmp_okr'], 'safe']
         ];
     }
 
@@ -56,7 +56,7 @@ class Groups extends \yii\db\ActiveRecord
             'is_subgroup' => 'Is Subgroup',
             'id_speciality' => 'Спеціальність',
             'inflow_year' => 'Рік вступу',
-            'parent_group' => 'Parent Group',
+            'parent_group' => 'Головна група',
             'number_of_students' => 'Кулькість студентів',
             'id_okr' => 'ОКР',
             'id_edebo' => 'ID ЄДЕБО',

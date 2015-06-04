@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\module\handbook\models\ClassroomsBusy;
+use app\module\handbook\models\LessonTime;
 
 /**
  * ClassroomsBusySearch represents the model behind the search form about `app\module\handbook\models\ClassroomsBusy`.
@@ -18,7 +19,8 @@ class ClassroomsBusySearch extends ClassroomsBusy
     public function rules()
     {
         return [
-            [['cb_id', 'id_classroom', 'day', 'lesson'], 'integer'],
+            [['cb_id'], 'integer'],
+            [['day', 'lesson', 'id_classroom'], 'safe'],
         ];
     }
 
@@ -45,7 +47,8 @@ class ClassroomsBusySearch extends ClassroomsBusy
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        $query->joinWith('lesson0');
+        $query->joinWith('classroom');
         $this->load($params);
 
         if (!$this->validate()) {
@@ -56,11 +59,12 @@ class ClassroomsBusySearch extends ClassroomsBusy
 
         $query->andFilterWhere([
             'cb_id' => $this->cb_id,
-            'id_classroom' => $this->id_classroom,
+            //'id_classroom' => $this->id_classroom,
             'day' => $this->day,
-            'lesson' => $this->lesson,
+            //'lesson' => $this->lesson,
         ]);
-
+        $query->andFilterWhere(['like', 'lesson_time_name', $this->lesson])
+              ->andFilterWhere(['like', 'classrooms_number', $this->id_classroom]);
         return $dataProvider;
     }
 }

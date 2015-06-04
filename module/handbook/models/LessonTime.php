@@ -41,7 +41,7 @@ class LessonTime extends \yii\db\ActiveRecord
     {
         return [
             'lesson_time_id' => 'Lesson Time ID',
-            'lesson_time_name' => 'Lesson Time Name',
+            'lesson_time_name' => 'Пара',
             'begin_time' => 'Begin Time',
             'end_time' => 'End Time',
         ];

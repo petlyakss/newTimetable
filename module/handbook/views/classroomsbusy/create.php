@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\module\handbook\models\ClassroomsBusy */
 
-$this->title = 'Create Classrooms Busy';
-$this->params['breadcrumbs'][] = ['label' => 'Classrooms Busies', 'url' => ['index']];
+$this->title = 'Забронювати аудиторію';
+$this->params['breadcrumbs'][] = ['label' => 'Перелік заброньованих аудиторій', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="classrooms-busy-create">

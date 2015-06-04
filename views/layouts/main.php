@@ -51,6 +51,7 @@ AppAsset::register($this);
                             ['label' => 'Спеціальності', 'url' => 'index.php?r=handbook/speciality'],
                             ['label' => 'Викладачі', 'url' => 'index.php?r=handbook/teachers'],
                             ['label' => 'Аудиторії', 'url' => 'index.php?r=handbook/classrooms'],
+                            ['label' => 'Забронювати аудиторію', 'url' => 'index.php?r=handbook/classroomsbusy'],
                             ['label' => 'Групи', 'url' => 'index.php?r=handbook/groups'],
                         ],
                         ],/*

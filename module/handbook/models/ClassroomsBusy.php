@@ -11,6 +11,9 @@ use Yii;
  * @property integer $id_classroom
  * @property string $day
  * @property integer $lesson
+ *
+ * @property LessonTime $lesson0
+ * @property Classrooms $idClassroom
  */
 class ClassroomsBusy extends \yii\db\ActiveRecord
 {
@@ -28,9 +31,9 @@ class ClassroomsBusy extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_classroom', 'day', 'lesson'], 'required'],
-            [['id_classroom', 'lesson'], 'integer'],
-            [['day'], 'safe']
+            [['id_classroom', 'day'], 'required'],
+            [['lesson'], 'integer'],
+            [['day', 'lesson', 'id_classroom'], 'safe']
         ];
     }
 
@@ -40,10 +43,26 @@ class ClassroomsBusy extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'cb_id' => 'Cb ID',
-            'id_classroom' => 'Id Classroom',
-            'day' => 'Day',
-            'lesson' => 'Lesson',
+            'cb_id' => 'ID',
+            'id_classroom' => 'Аудиторія',
+            'day' => 'Дата',
+            'lesson' => 'Пара',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLesson0()
+    {
+        return $this->hasOne(LessonTime::className(), ['lesson_time_id' => 'lesson']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getClassroom()
+    {
+        return $this->hasOne(Classrooms::className(), ['classrooms_id' => 'id_classroom']);
     }
 }

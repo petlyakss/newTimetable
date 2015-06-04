@@ -1,3 +1,14 @@
+<style>
+    th:first-child{
+        width: 50px;
+    }
+    th:last-child{
+        width: 50px;
+    }
+    th{
+        width: 35%;
+    }
+</style>
 <?php
 
 use yii\helpers\Html;
@@ -54,7 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
                 'clientOptions' => [
                     'autoclose' => true,
-                    'format' => 'yyyy-mm-dd'
+                    'format' => 'yyyy-mm-dd',
+                    'class' => 'ijjijj'
                 ]
             ])
             ],

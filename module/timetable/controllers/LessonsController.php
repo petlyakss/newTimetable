@@ -12,6 +12,8 @@ use yii\filters\VerbFilter;
 use app\module\handbook\models\Faculty;
 use app\module\handbook\models\Speciality;
 use app\module\handbook\models\Groups;
+use app\module\handbook\models\ClassRooms;
+use app\module\handbook\models\Housing;
 
 /**
  * LessonsController implements the CRUD actions for Lessons model.
@@ -216,6 +218,33 @@ class LessonsController extends Controller
                 'semestr' => $model['semestr']
             ]);
     }    
+    
+    public function actionClass_list($id,$seats)
+    {
+        if($id == true){
+            $posts = ClassRooms::find()
+                ->orderBy('classrooms_number ASC')
+                ->all();
+            foreach ($posts as $cl){ 
+                $housing = Housing::findOne(['housing_id' => $cl['id_housing']]);
+                echo "<option value='".$cl['classrooms_id']."'>".$cl['classrooms_number'].' - '.$housing['name']."</option>";
+            }
+        }else{
+            $classes = ClassRooms::find()->Where('seats>'.$seats)->orderBy('classrooms_number ASC')->all();
+            foreach ($classes as $cl){ 
+                $housing = Housing::findOne(['housing_id' => $cl['id_housing']]);
+                echo "<option value='".$cl['classrooms_id']."'>".$cl['classrooms_number'].' - '.$housing['name']."</option>";
+            }
+        }
+        
+ 
+    
+            /*foreach($posts as $post){
+                echo "<option value='".$post->classrooms_id."'>".$post->classrooms_number."</option>";
+            }*/
+        
+ 
+    }
     
     public function actionSpeciality_list($id)
     {

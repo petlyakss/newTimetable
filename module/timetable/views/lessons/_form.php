@@ -105,6 +105,15 @@ foreach($da as $x=>$x_value){
             ],
         ])->label('Викладач');
     ?>
+    
+    <?= 
+        $form->field($model, 'no_check')->checkbox([
+              'onchange'=>'
+                $.post("index.php?r=timetable/lessons/class_list&id='.'"+$(this).prop("checked")+"&seats='.'"+'.$sig.', function( data ) {
+                  $( "select#lessons-id_classroom" ).html( data );
+                });
+        '])->label(false); ?>
+    
     <?=
         $form->field($model, 'id_classroom')->widget(Select2::classname(), [
             'data' => $classroomsArray,

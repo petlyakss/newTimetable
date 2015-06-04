@@ -40,6 +40,7 @@ class Lessons extends \yii\db\ActiveRecord
     public $num_dem;
     public $subgroup;
     public $parent;
+    public $no_check;
     /**
      * @inheritdoc
      */
@@ -56,7 +57,7 @@ class Lessons extends \yii\db\ActiveRecord
         return [
             [['id_group', 'id_faculty', 'id_speciality', 'course', 'semester', 'id_okr', 'is_numerator', 'id_discipline', 'id_teacher', 'id_classroom', 'day', 'is_holiday', 'all_group', 'lesson_number'], 'required'],
             [['id_group', 'id_faculty', 'id_speciality', 'course', 'semester', 'id_okr', 'is_numerator', 'id_discipline', 'id_teacher', 'id_classroom', 'day', 'is_holiday', 'all_group', 'lesson_number'], 'integer'],
-            [['semestr','course_get','num_dem','subgroup', 'parent'],'safe']
+            [['semestr','course_get','num_dem','subgroup', 'parent', 'no_check'],'safe']
         ];
     }
 
@@ -82,7 +83,8 @@ class Lessons extends \yii\db\ActiveRecord
             'all_group' => 'Для всієї групи',
             'all_speciality' => 'Для всієї спеціальності',
             'lesson_number' => 'Lesson Number',
-            'num_dem' => 'По чисельнику і по знаменнику'
+            'num_dem' => 'По чисельнику і по знаменнику',
+            'no_check' => 'Не перевіряти кількість місць'
         ];
     }
 

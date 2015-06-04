@@ -63,6 +63,6 @@ class ClassroomsBusy extends \yii\db\ActiveRecord
      */
     public function getClassroom()
     {
-        return $this->hasOne(Classrooms::className(), ['classrooms_id' => 'id_classroom']);
+        return $this->hasOne(ClassRooms::className(), ['classrooms_id' => 'id_classroom']);
     }
 }

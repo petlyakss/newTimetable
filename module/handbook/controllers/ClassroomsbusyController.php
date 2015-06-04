@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ClassroomsBusyController implements the CRUD actions for ClassroomsBusy model.
+ * ClassroomsbusyController implements the CRUD actions for ClassroomsBusy model.
  */
-class ClassroomsBusyController extends Controller
+class ClassroomsbusyController extends Controller
 {
     public function behaviors()
     {

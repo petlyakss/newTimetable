@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use app\module\handbook\models\Housing;
 use app\module\handbook\models\ClassRooms;
+use dosamigos\datepicker\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\module\handbook\models\ClassroomsBusySearch */
@@ -37,11 +38,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $classes['classrooms_number'].' - '.$housing['name'];
                 }
             ],
-            'day',
             [
                 'attribute' => 'lesson',
                 'value' => 'lesson0.lesson_time_name'
             ],
+            [
+               'attribute' => 'day',
+               'value' => 'day',
+               'filter' => DatePicker::Widget([
+                'model' => $searchModel,
+                'attribute' => 'day',
+                'inline' => false, 
+                'language' => 'ua',
+                 // modify template for custom rendering
+                //'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+                'clientOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ])
+            ],
+            
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
